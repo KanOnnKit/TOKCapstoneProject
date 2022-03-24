@@ -2,6 +2,6 @@
 Team members:
 
 1. KAN ONN KIT
-2. KOH HONG LEE LINUS
+2. koh hong lee linus
 3. TOH QI ZHANG
 4. HUI YI XHI
