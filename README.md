@@ -5,3 +5,5 @@ Team members:
 2. Koh Hong Lee Linus
 3. Toh Qi Zhang
 4. Hui Yi Xhi
+
+Hello from Mr Ng
