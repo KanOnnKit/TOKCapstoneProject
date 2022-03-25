@@ -7,4 +7,3 @@ Team members:
 4. Hui Yi Xhi
 
 Hello from Mr Ng
-this is a demo
