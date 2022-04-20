@@ -31,7 +31,7 @@ def add():
     """
 
     # Constants
-    allowed_page_types = [None, "cca", "activity"]
+    allowed_page_types = {None, "activity", "cca"}  # Use a set for O(1) membership test
 
     # Get the requested page type
     requested_page_type = request.args.get("type", None)
@@ -54,15 +54,41 @@ def add():
             # Not allowed; return 405 error
             abort(405)
         else:
+            # Get the form data
+            form = dict(request.form)
+            form_keys = set(form.keys())  # We will compare this with needed keys later
+            
             # Handle data in different cases
-            # Todo: add
-            pass
+            if requested_page_type == "activity":
+                # Check if all needed parameters are present
+                if form_keys == Activity.fields:  # `Activity.fields` is a set
+                    # Create new CCA object using the data
+                    activityObj = Activity.from_dict(form)
+
+                    # Save the object
+                    activityObj.save()
+                else:
+                    abort(400)  # Todo: currently this raises a 400 Invalid Method error; should we show error instead?
+            else:  # The page type has to be "cca"
+                # Check if all needed parameters are present
+                if form_keys == CCA.fields:  # `CCA.fields` is a set
+                    # Create new CCA object using the data
+                    ccaObj = CCA.from_dict(form)
+
+                    # Save the object
+                    ccaObj.save()
+                else:
+                    abort(400)  # Todo: currently this 
 
 
 @app.route("/view", methods=["GET", "POST"])
 def view():
+    """
+    Page allowing user to see the details of an activity, a CCA, or a class.
+    """
+    
     # Constants
-    allowed_page_types = [None, "activity", "cca", "class", "student"]
+    allowed_page_types = {None, "activity", "cca", "class", "student"}  # Use a set for O(1) membership test
 
     # Get the requested page type
     requested_page_type = request.args.get("type", None)
@@ -92,8 +118,12 @@ def view():
 
 @app.route("/edit")
 def edit():
+    """
+    Page allowing user to see the details of an activity, a CCA, or a class.
+    """
+    
     # Constants
-    allowed_page_types = [None, "activity", "cca", "student"]
+    allowed_page_types = {None, "activity", "cca", "student"}  # Use a set for O(1) membership test
 
     # Get the requested page type
     requested_page_type = request.args.get("type", None)
