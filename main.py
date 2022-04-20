@@ -1,5 +1,5 @@
 # IMPORTS
-from flask import Flask, render_template, request, abort
+from flask import Flask, render_template, request, abort, redirect, url_for
 
 from storage import find_primary_key
 from helpers import get_id_from_name, get_ids_from_name
@@ -116,7 +116,6 @@ def edit():
             else:
                 # Todo handle data getting
         
-        
     else:  # POST
         if requested_page_type is None:
             # Not allowed; return 405 error
@@ -127,7 +126,18 @@ def edit():
 
         # Handle different cases depending on whether the ID is present
         if id_ is None:
-            # Todo add
+            # Get the name from the form
+            name = request.form.get("name", None)
+
+            # Ensure that a name was passed in
+            if name is None:
+                abort(400)  # 400 bad request
+            else:
+                # Get the ID based off the name
+                id_ = get_id_from_name(name, requested_page_type)
+
+                # Redirect to correct page
+                return redirect(url_for("edit", type=request_page_type, id=id_))  # Todo check if this is correct
         else:
             # Todo add
     
