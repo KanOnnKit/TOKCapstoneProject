@@ -94,3 +94,6 @@ pyproject.toml
 replit.nix
 .replit
 .config/
+
+# Others
+.breakpoints

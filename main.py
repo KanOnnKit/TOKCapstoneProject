@@ -117,7 +117,7 @@ def view():
         data_dict = {}
 
         # Return page request
-        return render_template("view.html", type=requested_page_type, data_dict)
+        return render_page_template("view.html", type=requested_page_type, data_dict)
 
 @app.route("/edit")
 def edit():
