@@ -5,9 +5,28 @@
 </head>
     
 <body>
+    {% if requested_page_type == 'cca' %}
 
-<h1>My First Heading</h1>
-<p>My first paragraph.</p>
+    <h2>Create CCA</h2>
+    
+    {{ form_html }}
+
+    {% elif page_type == 'activity' %}
+
+    <h2>Create activity</h2>
+    
+    {{ table_html }}
+    
+    <p>Is this correct?</p>
+
+    {{ form_html }}
+
+    {{% else %}}
+
+    <p>Would you like to add a <a href='/add?type=cca'>CCA</a> or an <a href='/add?type=activity'>activity?</a></p>
+    
+    
+    {% endif %}
 
 </body>
 </html>
