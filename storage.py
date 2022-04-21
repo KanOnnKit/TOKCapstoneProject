@@ -4,17 +4,15 @@ import sql
 
 url = ""
 
-def __init__(self,url):
-self.__url = url
-
-conn = sqlite3.connect(self.__url)
-c = conn.cursor()
-c.execute(sql.CREATE_TABLE_STUDENT)
-conn.commit()
-conn.close()
+def init(url):    
+    conn = sqlite3.connect(url)
+    c = conn.cursor()
+    c.execute(sql.CREATE_TABLE_STUDENT)
+    conn.commit()
+    conn.close()
 
 def replace_relation(table_name, primary_key, foreign_key, new_foreign_key):
-    conn = sqlite3.connect(self.__url)
+    conn = sqlite3.connect(url)
     c = conn.cursor()
     c.execute(f'''
           UPDATE {table_name} SET
@@ -24,14 +22,14 @@ def replace_relation(table_name, primary_key, foreign_key, new_foreign_key):
     conn.commit()
     conn.close()
 
-def add_entry(self,**kwargs):
-    conn = sqlite3.connect(self.__url)
+def add_entry(**kwargs):
+    conn = sqlite3.connect(url)
     c = conn.cursor()
     for key,value
     
     
 def remove_entry(table_name,primary_key):
-    conn = sqlite3.connect(self.__url)
+    conn = sqlite3.connect(url)
     c = conn.cursor()
     c.execute('''
               DELETE from "student"
@@ -44,7 +42,7 @@ def remove_relation(junction_table, match):
     for key in match.keys():
         if key not in TABLES["StudentCCA"]:
             raise KeyError()
-    conn = sqlite3.connect(self.__url)
+    conn = sqlite3.connect(url)
     c = conn.cursor()
     c.execute(f'''
               DELETE FROM {junction_tabe}
@@ -53,8 +51,8 @@ def remove_relation(junction_table, match):
               ''', match)
 
 
-def edit_entry(self, primary_key: int, kwvalues: dict):
-    conn = sqlite3.connect(self.__url)
+def edit_entry(primary_key: int, kwvalues: dict):
+    conn = sqlite3.connect(url)
     c = conn.cursor()
     for key,value in kwvalues.items():
         c.execute('''
@@ -66,8 +64,8 @@ def edit_entry(self, primary_key: int, kwvalues: dict):
         c.execute()
         
 
-def find_entry(self, primary_key):
-    conn = sqlite3.connect(self.__url)
+def find_entry(primary_key):
+    conn = sqlite3.connect(url)
     c = conn.cursor()
     c.execute('''
               SELECT "id" FROM "student"
@@ -78,7 +76,7 @@ def find_entry(self, primary_key):
     conn.execute()
 
 def get_all_primary_keys(self):
-    conn = sqlite3.connect(self.__url)
+    conn = sqlite3.connect(url)
     c = conn.cursor()
     c.execute('''
               SELECT "id" FROM "STUDENT";

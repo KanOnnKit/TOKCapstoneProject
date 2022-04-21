@@ -41,6 +41,12 @@ CREATE TABLE class(
     PRIMARY KEY(id)
 );"""
 
+CREATE_TABLE_STUDENTCCA = """
+"""
+
+CREATE_TABLE_STUDENTACTIVITY = """
+"""
+
 INSERT_STUDENT = """
 INSERT INTO student (Name, CT_class, CT_tutor)
 VALUES (:Name, :CT_class, :CT_tutor);
