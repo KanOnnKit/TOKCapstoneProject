@@ -1,7 +1,7 @@
 import validate as valid
 
 class Field:
-    def __init__ (self, name: str, lable: str, value: str):
+    def __init__ (self, name: str, label: str, value: str):
         self.name= name
         self.label= label
         
@@ -20,7 +20,7 @@ class IntegerField(Field):
 class SelectorField(Field):
     def __init__(self, name: str, label: str, selections):
         super().__init__(name, label)
-        self.__selections= None
+        self.__selections = selections
 
 class StringField(Field):
     def __init__(self, name: str, label: str):
