@@ -24,8 +24,8 @@ CREATE TABLE subject(
     PRIMARY KEY(id)
 );"""
 
-CREATE_TABLE_CLUB = """
-CREATE TABLE club(
+CREATE_TABLE_CCA = """
+CREATE TABLE cca(
     id INTEGER,
     Name TEXT,
     PRIMARY KEY(id)
@@ -41,13 +41,13 @@ CREATE TABLE class(
     PRIMARY KEY(id)
 );"""
 
-CREATE_TABLE_STUDENTCLUB = """
-CREATE TABLE studentclub(
+CREATE_TABLE_STUDENTcca = """
+CREATE TABLE studentcca(
 Student_id INTEGER,
-Club_id INTEGER,
+Cca_id INTEGER,
 PRIMARY KEY(Student_id,Cca_id)
 FOREIGN KEY(Student_id) REFERENCES student(id),
-FOREIGN KEY(Club_id) REFERENCES club(id)
+FOREIGN KEY(Cca_id) REFERENCES cca(id)
 );
 """
 

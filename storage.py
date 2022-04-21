@@ -2,23 +2,30 @@ import sqlite3
 
 import sql
 
-url = ""
+url = "https://replit.com/@KOH-HONG-LEE-LI/TOKCapstoneProject-3#Database_for_capstone.db"
 
+TABLES = {
+    "student": ["id","Name","Age","Year_enrolled","Graduating_year"],
+    "cca": ["id","Name"]
+    "activity": ["id","Name","Start_date","End_date","Description"]
+    "subject": ["id","Name","Level"]
+    "class": ["id","Name","Class"]
+    "studentcca": ["Student_id","Cca_id"]
+    "studentactivity": ["Student_id","Activity_id"]
+    "studentsubject": ["Student_id","Subject_id"]
+}
 def init(url):    
     conn = sqlite3.connect(url)
     c = conn.cursor()
     c.execute(sql.CREATE_TABLE_STUDENT)
+    c.execute(sql.CREATE_TABLE_CCA)
+    c.execute(sql.CREATE_TABLE_ACTIVITY)
+    c.execute(sql.CREATE_TABLE_SUBJECT)
+    c.execute(sql.CREATE_TABLE_CLASS)
     conn.commit()
-    conn.close()
-
-def replace_relation(table_name, primary_key, foreign_key, new_foreign_key):
-    conn = sqlite3.connect(url)
-    c = conn.cursor()
-    c.execute(f'''
-          UPDATE {table_name} SET
-          foreign_key = new_foreign_key,
-          WHERE "student"."id" = primary_key;
-          ''')
+    c.execute(sql.CREATE_TABLE_STUDENTCCA)
+    c.execute(sql.CREATE_TABLE_STUDENTACTIVITY)
+    c.execute(sql.CREATE_TABLE_STUDENTSUBJECT)
     conn.commit()
     conn.close()
 
@@ -38,9 +45,9 @@ def remove_entry(table_name,primary_key):
     conn.commit()
     conn.execute()
     
-def remove_relation(junction_table, match):
+def remove_relation(junction_table, match): # match would contain Two diff types of id
     for key in match.keys():
-        if key not in TABLES["StudentCCA"]:
+        if key not in TABLES[junction_table]:
             raise KeyError()
     conn = sqlite3.connect(url)
     c = conn.cursor()
