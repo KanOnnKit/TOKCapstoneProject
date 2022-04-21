@@ -30,8 +30,8 @@ class Entity:
             # Set the attribute values
             for key, value in record.items():
                 # Validate value
-                if not fields[key].validate(value):
-                    # Todo do something
+                # Catch ValidationError if necessary
+                fields[key].validate(value)
                 else:
                     # Update attribute
                     setattr(self, key, value)
