@@ -56,12 +56,12 @@ def add():
         else:
             # Get the form data
             form = dict(request.form)
-            form_keys = set(form.keys())  # We will compare this with needed keys later
+            form_keys = form.keys()  # We will compare this with needed keys later
             
             # Handle data in different cases
             if requested_page_type == "activity":
                 # Check if all needed parameters are present
-                if form_keys == Activity.fields:  # `Activity.fields` is a set
+                if form_keys == Activity.fields.keys():  # Todo: does this work?
                     # Create new CCA object using the data
                     activityObj = Activity.from_dict(form)
 
@@ -71,7 +71,7 @@ def add():
                     abort(400)  # Todo: currently this raises a 400 Invalid Method error; should we show error instead?
             else:  # The page type has to be "cca"
                 # Check if all needed parameters are present
-                if form_keys == CCA.fields:  # `CCA.fields` is a set
+                if form_keys == CCA.fields.keys():  # `CCA.fields` is a set
                     # Create new CCA object using the data
                     ccaObj = CCA.from_dict(form)
 
@@ -81,7 +81,7 @@ def add():
                     abort(400)  # Todo: currently this raises a 400 Invalid Method error; should we show error instead?
 
             # Return acknowledgement
-            # Todo add
+            return render_template("confirm.html", data=form)  # Todo: confirm format
 
 
 @app.route("/view", methods=["GET", "POST"])
@@ -112,9 +112,15 @@ def view():
             # Not allowed; return 405 error
             abort(405)
 
-        # Generate data dictionary
-        # Todo add
-        data_dict = {}
+        else:
+            # Try and get the ID
+            id_ = request.args.get("id", None)
+
+            # Handle different cases depending on whether the ID is present
+            if id_ is None:
+                return render_template("view.html", type=requested_page_type)
+            else:
+                # Todo handle data getting
 
         # Return page request
         return render_page_template("view.html", type=requested_page_type, data_dict)
@@ -174,8 +180,8 @@ def edit():
         else:
             # Todo add
 
-        # Send acknowledgement
-        # Todo add
+        # Return acknowledgement
+        return render_template("confirm.html", data=form)  # Todo: confirm format
 
 
 # MAIN CODE
