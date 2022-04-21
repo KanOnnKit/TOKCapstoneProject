@@ -1,5 +1,5 @@
 # IMPORTS
-from fields import StringField, SelectorField
+from fields import IntegerField, StringField, SelectorField, DateField
 from storage import add_entry, edit_entry, find_entry
 
 
@@ -21,6 +21,8 @@ class Entity:
     def __init__(self, id_: str) -> None:
         """
         Initialisation method for the abstract `Entity` class.
+
+        If the validation fails, raises a `ValueError`.
         """
 
         if id_ is not None:
@@ -30,8 +32,8 @@ class Entity:
             # Set the attribute values
             for key, value in record.items():
                 # Validate value
-                if not fields[key].validate(value):
-                    # Todo do something
+                if not self.fields[key].validate(value):
+                    raise ValueError(f"Invalid value for {key}: {value}")
                 else:
                     # Update attribute
                     setattr(self, key, value)
@@ -57,9 +59,9 @@ class Entity:
         # Update/Create the database entry
         if self._id is None:
             # Create a new entry
-            add_entry(table_name, data_dict)
+            add_entry(self.table_name, data_dict)
         else:  # The entry already exists
-            edit_entry(table_name, self._id, data_dict)
+            edit_entry(self.table_name, self._id, data_dict)
 
     def to_dict(self) -> dict:
         """
@@ -68,7 +70,7 @@ class Entity:
         """
 
         data_dict = {}
-        for field in fields.keys():
+        for field in self.fields.keys():
             data_dict[field] = getattr(self, field)
 
         return data_dict
@@ -78,8 +80,8 @@ class Entity:
         Validates the attribute values. Returns `True` if all valid, `False` otherwise.
         """
 
-        for key in fields.keys():
-            if not fields[key].validate(getattr(self, key)):  # Not valid value
+        for key in self.fields.keys():
+            if not self.fields[key].validate(getattr(self, key)):  # Not valid value
                 return False
 
         return True  # All checks passed
@@ -121,13 +123,77 @@ class Subject(Entity):
     table_name = "subject"
 
 
-# class Student(Entity):
-#     """
-#     Student entity.
+class Student(Entity):
+    """
+    Student entity.
 
-#     Has the following fields:
-#         - name: Name of the subject (string. with selections)
-#         - level: Level of the subject (string, with selections)
+    Has the following fields:
+        - name: Name of the student (string)
+        - age: Age of the student (integer)
+        - year_enrolled: Year that the student enrolled (integer)
+        - graduating_year: Year that the student will graduate (integer)
 
-#     Table name is "subject".
-#     """
+    Table name is "student".
+    """
+
+    fields = {
+        "name": StringField("name", "Name of the Student"),
+        "age": IntegerField("age", "Student Age"),
+        "year_enrolled": IntegerField("year_enrolled", "Year Enrolled"),
+        "graduating_year": IntegerField("graduating_year", "Year of Graduation")
+    }
+    table_name = "student"
+
+
+class Class(Entity):
+    """
+    Class entity.
+
+    Has the following fields:
+        - name: Class name (string)
+        - level: Level of the class (string, with selections)
+
+    Table name is "class"
+    """
+
+    fields = {
+        "name": StringField("name", "Class Name"),
+        "level": SelectorField("level", "Class Level", {"JC1", "JC2"})
+    }
+    table_name = "class"
+
+
+class CCA(Entity):
+    """
+    CCA entity.
+
+    Has one field: name (of the CCA); is a string.
+    Table name is "cca"
+    """
+
+    fields = {
+        "name": StringField("name", "CCA Name")
+    }
+    table_name = "cca"
+
+
+class Activity(Entity):
+    """
+    Activity entity.
+
+    Has the following fields:
+        - name: Activity name (string)
+        - start_date: Starting date of the activity (date field)
+        - end_date: Ending date of the activity (date field)
+        - description: Description of the activity (string field)
+
+    Table name is "activity".
+    """
+
+    fields = {
+        "name": StringField("name", "Activity Name"),
+        "start_date": DateField("start_date", "Activity Starting Date"),
+        "end_date": DateField("end_date", "Activity Ending Date"),
+        "description": StringField("description", "Activity Description")
+    }
+    table_name = "activity"
