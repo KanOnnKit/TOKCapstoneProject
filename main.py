@@ -78,7 +78,10 @@ def add():
                     # Save the object
                     ccaObj.save()
                 else:
-                    abort(400)  # Todo: currently this 
+                    abort(400)  # Todo: currently this raises a 400 Invalid Method error; should we show error instead?
+
+            # Return acknowledgement
+            # Todo add
 
 
 @app.route("/view", methods=["GET", "POST"])
@@ -100,9 +103,9 @@ def view():
     # Handle different page methods
     if request.method == "GET":
         if requested_page_type is None:
-            return render_page_template("view.html")
+            return render_template("view.html")
         else:
-            return render_page_template("view.html", type=requested_page_type)
+            return render_template("view.html", type=requested_page_type)
             
     else:  # POST
         if requested_page_type is None:
@@ -170,6 +173,11 @@ def edit():
                 return redirect(url_for("edit", type=request_page_type, id=id_))  # Todo check if this is correct
         else:
             # Todo add
-    
+
+        # Send acknowledgement
+        # Todo add
+
+
 # MAIN CODE
-app.run("0.0.0.0")
+if __name__ == "__main__":
+    app.run("0.0.0.0")
