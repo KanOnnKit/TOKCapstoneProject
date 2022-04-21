@@ -1,5 +1,7 @@
 form datetime import datetime
 
+class ValidationError(Exception): pass
+
 def validate_integer(val):
     if isinstance(val, int):
         return True

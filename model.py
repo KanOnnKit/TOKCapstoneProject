@@ -97,6 +97,9 @@ class Entity:
 
         # Set the attributes of this new entity based on the dictionary
         for key, value in dictionary.items():
+            # field = self.fields[key]
+            # This will raise validation.ValidationError if validation fails
+            # field.validate(value)
             setattr(obj, key, value)
 
         # Return the new object
