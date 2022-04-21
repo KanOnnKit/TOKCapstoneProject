@@ -27,7 +27,7 @@ class Entity:
 
         if id_ is not None:
             # Get the data of this entity from the database
-            record = find_entry(self.table_name, id_)  # Primary key is `id_`
+            record = find_entry(table_name, id_)  # Primary key is `id_`
     
             # Set the attribute values
             for key, value in record.items():
