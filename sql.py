@@ -41,10 +41,34 @@ CREATE TABLE class(
     PRIMARY KEY(id)
 );"""
 
-CREATE_TABLE_STUDENTCCA = """
+CREATE_TABLE_STUDENTCLUB = """
+CREATE TABLE studentclub(
+Student_id INTEGER,
+Club_id INTEGER,
+PRIMARY KEY(Student_id,Cca_id)
+FOREIGN KEY(Student_id) REFERENCES student(id),
+FOREIGN KEY(Club_id) REFERENCES club(id)
+);
 """
 
 CREATE_TABLE_STUDENTACTIVITY = """
+CREATE TABLE studentactivity(
+Student_id INTEGER,
+Activity_id INTEGER,
+PRIMARY KEY(Student_id,Activity_id)
+FOREIGN KEY(Student_id) REFERENCES student(id),
+FOREIGN KEY(Activity_id) REFERENCES activity(id)
+);
+"""
+
+CREATE_TABLE_STUDENTSUBJECT = """
+CREATE TABLE studentsubject(
+Student_id INTEGER,
+Subject_id INTEGER,
+PRIMARY KEY(Student_id,Subject_id)
+FOREIGN KEY(Student_id) REFERENCES student(id),
+FOREIGN KEY(Subject_id) REFERENCES subject(id)
+);
 """
 
 INSERT_STUDENT = """
