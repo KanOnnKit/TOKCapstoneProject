@@ -2,7 +2,7 @@
 from flask import Flask, render_template, request, abort, redirect, url_for
 
 from storage import find_primary_key
-from helpers import get_id_from_name, get_ids_from_name
+from helpers import get_id_from_name, get_ids_from_name, get_data_from_id
 
 # SETUP
 app = Flask(__name__)
@@ -120,10 +120,12 @@ def view():
             if id_ is None:
                 return render_template("view.html", type=requested_page_type)
             else:
-                # Todo handle data getting
+                # Get the data from the correct ID and type
+                data = get_data_from_id(id_, requested_page_type)
+                
+                # Return page request
+                return render_page_template("view.html", type=requested_page_type, data_dict=data)
 
-        # Return page request
-        return render_page_template("view.html", type=requested_page_type, data_dict)
 
 @app.route("/edit")
 def edit():
@@ -153,7 +155,12 @@ def edit():
             if id_ is None:
                 return render_template("edit.html", type=requested_page_type)
             else:
-                # Todo handle data getting
+                # Get the data from the correct ID and type
+                data = get_data_from_id(id_, requested_page_type)
+                
+                # Return page request
+                return render_page_template("edit.html", type=requested_page_type, data_dict=data)
+
         
     else:  # POST
         if requested_page_type is None:
