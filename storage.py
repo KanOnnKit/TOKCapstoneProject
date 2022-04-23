@@ -10,8 +10,8 @@ TABLES = {
     "activity": ["id","Name","Start_date","End_date","Description"]
     "subject": ["id","Name","Level"]
     "class": ["id","Name","Class"]
-    "studentcca": ["Student_id","Cca_id"]
-    "studentactivity": ["Student_id","Activity_id"]
+    "studentcca": ["Student_id","Cca_id","Role"]
+    "studentactivity": ["Student_id","Activity_id","Category","Role","Award","Hours"]
     "studentsubject": ["Student_id","Subject_id"]
 }
 def init(url):    
@@ -29,10 +29,16 @@ def init(url):
     conn.commit()
     conn.close()
 
-def add_entry(**kwargs):
+def add_entry(table_name,values):
     conn = sqlite3.connect(url)
     c = conn.cursor()
-    for key,value
+    for key,value in kwargs:
+        c.execute(f'''
+                  INSERT INTO {table_name}(
+                  ?)
+                  VALUES(?)
+                  '''(key,values);)
+        
     
     
 def remove_entry(table_name,primary_key):
@@ -52,9 +58,9 @@ def remove_relation(junction_table, match): # match would contain Two diff types
     conn = sqlite3.connect(url)
     c = conn.cursor()
     c.execute(f'''
-              DELETE FROM {junction_tabe}
-              WHERE Student_id = :student_id
-              AND CCA_id = :cca_id;
+              DELETE FROM {junction_table}
+              WHERE Student_id = :Student_id
+              AND CCA_id = :Cca_id;
               ''', match)
 
 
@@ -71,25 +77,52 @@ def edit_entry(primary_key: int, kwvalues: dict):
         c.execute()
         
 
-def find_entry(primary_key):
+def find_entry(table,primary_key):
     conn = sqlite3.connect(url)
     c = conn.cursor()
-    c.execute('''
-              SELECT "id" FROM "student"
+    cursor = c.execute(f'''
+              SELECT "id" FROM {table}
               WHERE "id" = ?;
               ''',(primary_key,))
+    data = cursor.fetchall()
 
+    for row in data:
+        counter = 0
+        for column in TABlES[table]:
+            print(f'{column}:, {row[counter]}')
+            counter+= 1
     conn.commit()
     conn.execute()
 
-def get_all_primary_keys(self):
+def get_all_primary_keys(table_name):
     conn = sqlite3.connect(url)
     c = conn.cursor()
-    c.execute('''
-              SELECT "id" FROM "STUDENT";
+    cursor = c.execute(f'''
+              SELECT "id" FROM {table_name};
               ''')
+    data = cursor.fetchall()
+    for line in data:
+        print(line[0])
     conn.execute()
     conn.commit()
+
+def get_all_primary_keys_and_values(table_name):
+    conn = sqlite3.connect(url)
+    c = conn.cursor()
+    cursor = c.execute(f'''
+                       SELECT * FROM {table_name};
+                       ''')
+    data = cursor.fetchall()
+    for line in data:
+        counter = 0
+        for column in TABlES[table]:
+            print(f'{column}:, {row[counter]}')
+            counter+= 1
+    conn.execute()
+    conn.commit()
+    
+        
+        
     
 
 
