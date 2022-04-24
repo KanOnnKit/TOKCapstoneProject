@@ -27,13 +27,14 @@ class Entity:
 
         if id_ is not None:
             # Get the data of this entity from the database
-            record = find_entry(table_name, id_)  # Primary key is `id_`
+            record = find_entry(self.table_name, id_)  # Primary key is `id_`
     
             # Set the attribute values
             for key, value in record.items():
                 # Validate value
                 if not self.fields[key].validate(value):
                     raise ValueError(f"Invalid value for {key}: {value}")
+
                 else:
                     # Update attribute
                     setattr(self, key, value)
@@ -45,7 +46,7 @@ class Entity:
         return f"{self.__name__}({self._id})"  # Will be overwritten in subclasses
 
     def __str__(self) -> str:
-        return __repr__(self)  # Will be overwritten in subclasses
+        return self.__repr__()  # Will be overwritten in subclasses
 
     # Public methods
     def save(self) -> None:
@@ -60,6 +61,7 @@ class Entity:
         if self._id is None:
             # Create a new entry
             add_entry(self.table_name, data_dict)
+
         else:  # The entry already exists
             edit_entry(self.table_name, self._id, data_dict)
 
