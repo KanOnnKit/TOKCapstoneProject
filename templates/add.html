@@ -6,7 +6,7 @@
     
 <body>
     {% if type == 'cca' %}
-
+    
     <h2>Add a CCA</h2>
     <!-- start of form -->
     <form
@@ -32,10 +32,9 @@
     <!-- end of form -->
     
     <p>Is this correct?</p>
-    </form>
-
+    
     {% elif type == 'activity' %}
-
+    
     <h2>Add an Activity</h2>
 
     <!-- start of form -->
@@ -99,15 +98,18 @@
     <!-- end of form -->
     
     <p>Is this correct?</p>
-
-
+    
     {% else %}
-
+        
     <a href='/add?type=cca'>Add a CCA</a><br /> 
     <a href='/add?type=activity'>Add an Activity</a>
-    
-    
+        
     {% endif %}
-
+        
+    <div id='brought2u'>
+    Brought to you by
+        H2 computing
+    </div>
+    
 </body>
 </html>
