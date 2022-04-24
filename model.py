@@ -34,7 +34,7 @@ class Entity:
                 # Validate value
                 if not self.fields[key].validate(value):
                     raise ValueError(f"Invalid value for {key}: {value}")
-                
+
                 else:
                     # Update attribute
                     setattr(self, key, value)
@@ -61,7 +61,7 @@ class Entity:
         if self._id is None:
             # Create a new entry
             add_entry(self.table_name, data_dict)
-        
+
         else:  # The entry already exists
             edit_entry(self.table_name, self._id, data_dict)
 
