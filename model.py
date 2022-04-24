@@ -45,7 +45,7 @@ class Entity:
         return f"{self.__name__}({self._id})"  # Will be overwritten in subclasses
 
     def __str__(self) -> str:
-        return __repr__(self)  # Will be overwritten in subclasses
+        return self.__repr__()  # Will be overwritten in subclasses
 
     # Public methods
     def save(self) -> None:

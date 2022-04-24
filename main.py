@@ -1,8 +1,9 @@
 # IMPORTS
 from flask import Flask, render_template, request, abort, redirect, url_for
 
-from storage import find_primary_key
-from helpers import get_id_from_name, get_ids_from_name, get_data_from_id
+from model import Activity, CCA, Student
+from storage import find_entry, add_entry, remove_relation
+from helpers import get_id_from_name, get_ids_from_names, get_data_from_id
 
 # SETUP
 app = Flask(__name__)
@@ -57,6 +58,8 @@ def add():
             # Get the form data
             form = dict(request.form)
             form_keys = form.keys()  # We will compare this with needed keys later
+
+            # Todo: also handle CCA id adding for activities
             
             # Handle data in different cases
             if requested_page_type == "activity":
@@ -122,9 +125,11 @@ def view():
             else:
                 # Get the data from the correct ID and type
                 data = get_data_from_id(id_, requested_page_type)
+
+                # Todo: also handle relationship viewing
                 
                 # Return page request
-                return render_page_template("view.html", type=requested_page_type, data_dict=data)
+                return render_template("view.html", type=requested_page_type, data_dict=data)
 
 
 @app.route("/edit")
@@ -155,13 +160,51 @@ def edit():
             if id_ is None:
                 return render_template("edit.html", type=requested_page_type)
             else:
-                # Get the data from the correct ID and type
-                data = get_data_from_id(id_, requested_page_type)
-                
-                # Return page request
-                return render_page_template("edit.html", type=requested_page_type, data_dict=data)
+                if requested_page_type == "activity":
+                    # Get associated students' IDs
+                    records = find_entry("studentactivity", id_)  # Todo: confirm if this works with junction tables
 
-        
+                    # Get the names of said students
+                    student_names = []
+                    for record in records:
+                        # This code is not particularly efficient. oh well
+                        student_obj = Student(record["id"])  # Todo: does this work?  
+                        student_names.append(student_obj.name)
+                
+                    # Return request
+                    return render_template("edit.html", type="activity", associated_students=student_names)
+                elif requested_page_type == "cca":
+                    # Get associated students' IDs
+                    records = find_entry("studentcca", id_)  # Todo: confirm if this works with junction tables
+
+                    # Get the names of said students
+                    student_names = []
+                    for record in records:
+                        # This code is not particularly efficient. oh well
+                        student_obj = Student(record["id"])  # Todo: does this work?  
+                        student_names.append(student_obj.name)
+                    
+                    # Return request
+                    return render_template("edit.html", type="cca", associated_students=student_names)
+                else:  # Should be "student"
+                    # Get CCA records and activity records
+                    cca_records = find_entry("studentcca", id_)  # Todo: confirm if this works with junction tables
+                    activity_records = find_entry("studentactivity", id_)  # Todo: confirm if this works with junction tables
+                    
+                    # Get the names of the CCAs
+                    cca_names = []
+                    for record in cca_records:
+                        cca_obj = CCA(record["id"])  # Todo: does this work?
+                        cca_names.append(cca_obj.name)
+                    
+                    activity_names = []
+                    for record in activity_records:
+                        activity_obj = Activity(record["id"])  # Todo: does this work?
+                        activity_names.append(activity_obj.name)
+
+                    # Return request
+                    return render_template("edit.html", type="cca", associated_ccas=cca_names, associated_activities=activity_names)
+
     else:  # POST
         if requested_page_type is None:
             # Not allowed; return 405 error
@@ -183,12 +226,105 @@ def edit():
                 id_ = get_id_from_name(name, requested_page_type)
 
                 # Redirect to correct page
-                return redirect(url_for("edit", type=request_page_type, id=id_))  # Todo check if this is correct
+                return redirect(url_for("edit", type=requested_page_type, id=id_))  # Todo check if this is correct
+        
         else:
-            # Todo add
+            # Handle changes made to the models
+            # Todo: apply D.R.Y. principle to below code
+            if requested_page_type == "activity":
+                # We expect the request form to contain the `associated_students` key
+                associated_students = request.form.get("associated_students", None)
 
-        # Return acknowledgement
-        return render_template("confirm.html", data=form)  # Todo: confirm format
+                if associated_students is None:
+                    abort(400)  # Bad request
+
+                # Get the IDs of the associated students' names
+                new_associated_ids = set(get_ids_from_names(associated_students, "student").values())
+
+                # Get the existing IDs of the associated students
+                records = find_entry("studentactivity", id_)  # Todo: confirm if this works with junction tables
+                old_associated_ids = set([record["id"] for record in records])
+
+                # Compute the symmetric set difference to see what changed
+                changed_ids = old_associated_ids.symmetric_difference(new_associated_ids)
+
+                # Determine if it was an "add" or a "remove"
+                for changed_id in changed_ids:
+                    if changed_id in old_associated_ids:
+                        # The ID was removed
+                        remove_relation("studentactivity", {"student_id": changed_id, "activity_id": id_})
+                    else:
+                        # The ID was added
+                        add_entry("studentactivity", {"student_id": changed_id, "activity_id": id_})  # Todo: does this work?
+            
+            elif requested_page_type == "cca":
+                # We expect the request form to contain the `associated_students` key
+                associated_students = request.form.get("associated_students", None)
+
+                if associated_students is None:
+                    abort(400)  # Bad request
+
+                # Get the IDs of the associated students' names
+                new_associated_ids = set(get_ids_from_names(associated_students, "student").values())
+
+                # Get the existing IDs of the associated students
+                records = find_entry("studentcca", id_)  # Todo: confirm if this works with junction tables
+                old_associated_ids = set([record["id"] for record in records])
+
+                # Compute the symmetric set difference to see what changed
+                changed_ids = old_associated_ids.symmetric_difference(new_associated_ids)
+
+                # Determine if it was an "add" or a "remove"
+                for changed_id in changed_ids:
+                    if changed_id in old_associated_ids:
+                        # The ID was removed
+                        remove_relation("studentcca", {"student_id": changed_id, "cca_id": id_})
+                    else:
+                        # The ID was added
+                        add_entry("studentcca", {"student_id": changed_id, "cca_id": id_})  # Todo: does this work?
+            
+            else:  # Page type is student
+                # We expect the request form to contain the `associated_ccas` and `associated_activities` keys
+                associated_ccas = request.form.get("associated_ccas", None)
+                associated_activities = request.form.get("associated_activities", None)
+
+                if associated_ccas is None or associated_activities:
+                    abort(400)  # Bad request
+
+                # Get the IDs of the associated entities' names
+                new_associated_cca_ids = set(get_ids_from_names(associated_ccas, "cca").values())
+                new_associated_activity_ids = set(get_ids_from_names(associated_activities, "activity").values())
+
+                # Get the existing IDs of the associated students
+                records = find_entry("studentcca", id_)  # Todo: confirm if this works with junction tables
+                old_associated_cca_ids = set([record["id"] for record in records])
+
+                records = find_entry("studentactivity", id_)  # Todo: confirm if this works with junction tables
+                old_associated_activity_ids = set([record["id"] for record in records])
+
+                # Compute the symmetric set difference to see what changed
+                changed_cca_ids = old_associated_cca_ids.symmetric_difference(new_associated_cca_ids)
+                changed_activity_ids = old_associated_activity_ids.symmetric_difference(new_associated_activity_ids)
+
+                # Determine if it was an "add" or a "remove"
+                for changed_id in changed_cca_ids:
+                    if changed_id in old_associated_cca_ids:
+                        # The ID was removed
+                        remove_relation("studentcca", {"student_id": changed_id, "cca_id": id_})
+                    else:
+                        # The ID was added
+                        add_entry("studentcca", {"student_id": changed_id, "cca_id": id_})  # Todo: does this work?
+
+                for changed_id in changed_activity_ids:
+                    if changed_id in old_associated_activity_ids:
+                        # The ID was removed
+                        remove_relation("studentactivity", {"student_id": changed_id, "activity_id": id_})
+                    else:
+                        # The ID was added
+                        add_entry("studentactivity", {"student_id": changed_id, "activity_id": id_})  # Todo: does this work?
+
+            # Return acknowledgement
+            return render_template("confirm.html", data=request.form)  # Todo: confirm format
 
 
 # MAIN CODE
