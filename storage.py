@@ -32,7 +32,7 @@ def init(url):
 def add_entry(table_name,values):
     conn = sqlite3.connect(url)
     c = conn.cursor()
-    for key,value in kwargs:
+    for key,value in values:
         c.execute(f'''
                   INSERT INTO {table_name}(
                   ?)
@@ -44,34 +44,37 @@ def add_entry(table_name,values):
 def remove_entry(table_name,primary_key):
     conn = sqlite3.connect(url)
     c = conn.cursor()
-    c.execute('''
-              DELETE from "student"
-              WHERE "student"."id" = ?
+    c.execute(f'''
+              DELETE from {table_name}
+              WHERE "id" = ?
               ''',(primary_key,))
     conn.commit()
     conn.execute()
     
 def remove_relation(junction_table, match): # match would contain Two diff types of id
+    Flag = True
     for key in match.keys():
         if key not in TABLES[junction_table]:
             raise KeyError()
-    conn = sqlite3.connect(url)
-    c = conn.cursor()
-    c.execute(f'''
-              DELETE FROM {junction_table}
-              WHERE Student_id = :Student_id
-              AND CCA_id = :Cca_id;
-              ''', match)
+            Flag = False
+    if Flag = True:
+        conn = sqlite3.connect(url)
+        c = conn.cursor()
+        c.execute('''
+                  DELETE FROM {junction_table}
+                  WHERE ? = ?
+                  AND ? = ?;
+                  ''', (TABLES[junction_table][0],match[TABLES[junction_table][0]],TABLES[junction_table][1],match[TABLES[junction_table][1]]))
 
 
-def edit_entry(primary_key: int, kwvalues: dict):
+def edit_entry(table_name,primary_key: int, kwvalues: dict):
     conn = sqlite3.connect(url)
     c = conn.cursor()
     for key,value in kwvalues.items():
-        c.execute('''
-                  UPDATE "student" SET
+        c.execute(f'''
+                  UPDATE {table_name} SET
                   ? = ?
-                  WHERE "student"."id" = ?
+                  WHERE "id" = ?
                   ''', (key,value,primary_key))
         c.commit()
         c.execute()
