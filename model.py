@@ -22,7 +22,7 @@ class Entity:
         """
         Initialisation method for the abstract `Entity` class.
 
-        If the validation fails, raises a `ValueError`.
+        If the validation fails, raises a `ValidationError`.
         """
 
         if id_ is not None:
@@ -31,13 +31,11 @@ class Entity:
     
             # Set the attribute values
             for key, value in record.items():
-                # Validate value
-                if not self.fields[key].validate(value):
-                    raise ValueError(f"Invalid value for {key}: {value}")
-
-                else:
-                    # Update attribute
-                    setattr(self, key, value)
+                # Catch ValidationError if necessary
+                fields[key].validate(value)
+                
+                # Update attribute
+                setattr(self, key, value)
 
         # Also save the PK as an attribute
         self._id = id_  # We want this to be pseudo-private
@@ -101,6 +99,9 @@ class Entity:
 
         # Set the attributes of this new entity based on the dictionary
         for key, value in dictionary.items():
+            # field = self.fields[key]
+            # This will raise validation.ValidationError if validation fails
+            # field.validate(value)
             setattr(obj, key, value)
 
         # Return the new object
