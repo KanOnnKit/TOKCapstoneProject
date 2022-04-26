@@ -95,9 +95,10 @@ def find_entry(table,primary_key,uri): #returns entry
     for row in data:
         counter = 0
         record = {}
-        for column in TABlES[table]:
-            record[column] = row[counter]
-            counter+= 1
+        for column in TABLES[table]:
+                record[column] = row[counter]
+                counter+= 1
+        
     conn.commit()
     conn.execute()
 
