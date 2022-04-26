@@ -26,43 +26,18 @@
         /><br />
     <input type='submit' value='Submit'/>
     </form>
-    
     <p>Is this correct?</p>
-<!-- insert form here -->
-    </form>
+<!-- end of form -->
 
     {% elif type == 'activity' %}
 
     <h2>Add an Activity</h2>
-    
-    <form
-        action="/add"
-        method="post"
-        id="cca_info"
+    <!-- start of form -->
+    <form 
+        action="/add" 
+        method="post" 
+        id="cca_info" 
     >
-<!-- insert form here -->
-    <label for="cca_name">Name of Activity:</label>
-    <input 
-        id='act_name'
-        type='text'
-        name='act_name'
-        placeholder='Cyberthon 2022'
-        value=''
-        minlength=20
-        /><br />
-    <input type='submit' value='Submit'/>
-    </form>
-    
-    <p>Is this correct?</p>
-
-
-    {{% else %}}
-
-    <a href='/add?type=cca'>Add a CCA</a><br /> 
-    <a href='/add?type=activity'>Add an Activity</a>
-    
-    
-    {% endif %}
 
     <label for="name">Name of Activity:</label>
         <input 
@@ -115,17 +90,18 @@
     <br />
     <input type='submit' value='Submit' size=12/>
     </form>
-    <!-- end of form -->
-    
+<!-- end of form -->
     <p>Is this correct?</p>
-    
-    {% else %}
-        
+
+
+    {{% else %}}
+
     <a href='/add?type=cca'>Add a CCA</a><br /> 
     <a href='/add?type=activity'>Add an Activity</a>
-        
+    
+    
     {% endif %}
-        
+    
     <div id='brought2u'>
     Brought to you by
         H2 computing
