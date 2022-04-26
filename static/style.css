@@ -1,0 +1,23 @@
+.pagetitle {
+    font-family: verdana;
+    font-size: 20px;
+}
+
+body {
+    background-color: #2C2F33;
+}        
+h1 {
+    color: whitesmoke;
+}
+p {
+    color: lightblue;
+}
+a {
+    color: lightblue;
+}
+.options {
+    font-size: 150%;
+        }
+#brought2u {
+    font-style: italic;
+}

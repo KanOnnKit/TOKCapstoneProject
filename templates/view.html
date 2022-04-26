@@ -2,17 +2,111 @@
 <html>
 <head>
     <title>NYJC CCA Manager</title>
+    <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='style.css') }}" />
 </head>
     
 <body>
+    
+    {% if type == 'activity' %}
+    <form
+        action="/view"
+        method="post"
+        id="act_info">
+    <label for="name">Name of activity:</label>
+        <input
+            id="name"
+            type="text"
+            name="name"
+            placeholder="Cyberthon 2022"
+            size=20
+            required="required"
+            /><br />
+    <br />
+    <input type='submit' value='Submit'/>
+    </form>
+    
+    {% elif type == 'cca' %}
+    <form
+        action="/view"
+        method="post"
+        id="cca_info">
+    <label for="name">Name of CCA:</label>
+        <input
+            id="name"
+            type="text"
+            name="name"
+            placeholder="Nanyang Computing"
+            size=20
+            required="required"
+            /><br />
 
-<h1>My First Heading</h1>
-<p>My first paragraph.</p>
+    <br />
+    <input type='submit' value='Submit'/>
+    </form>
+    
+    {% elif type == 'class' %}
+    <form
+        action="/view"
+        method="post"
+        id="cca_info">
+    <label for="name">Name of class:</label>
+        <input
+            id="name"
+            type="text"
+            name="name"
+            placeholder="2113"
+            size=20
+            required="required"
+            /><br />
+
+    <br />
+    <input type='submit' value='Submit'/>
+    </form>
+    
+    {% elif type == 'student' %}
+    <form
+        action="/view"
+        method="post"
+        id="cca_info">
+    <label for="name">Name of student:</label>
+        <input
+            id="name"
+            type="text"
+            name="name"
+            placeholder="Tan Onn Kit"
+            size=20
+            required="required"
+            /><br />
+
+    <br />
+    <input type='submit' value='Submit'/>
+    </form>
+    
+    {% else %} <!-- new form -->
+    
+    <h1>What would you like to do?</h1>
+    
+    <p>Do you want to <br />
+        <div class='options'>
+            <a href='/view?type=activity'>View a past activity</a><br /> 
+            <a href='/view?type=cca'>View a CCA</a><br /> 
+            <a href='/view?type=class'>View a class</a><br /> 
+            <a href='/view?type=student'>View a student</a><br />
+        </div>
+    </p>
+
+    {% endif %}
+    <div id='brought2u'>
+    Brought to you by
+        H2 computing
+    </div>
+
 <select name="cca_name" id="cca_name">
         <option value="nyava">NYAVA</option>
         <option value="bball">NY Basketball</option>
         <option value="robotics">NY Robotics Club</option>
         <option value="flball">NY Floorball</option>
         <option value="scouncil">NY Student Council</option>
+
 </body>
 </html>
