@@ -9,17 +9,18 @@
     {% if type == 'cca' %}
 
     <h2>Add a CCA</h2>
+<!-- sends name -->
     <form
         action="/add"
         method="post"
         id="cca_info"
     >
 <!-- insert form here -->
-    <label for="cca_name">Name of CCA:</label>
+    <label for="name">Name of CCA:</label>
     <input 
-        id='cca_name'
+        id='name'
         type='text'
-        name='cca_name'
+        name='name'
         placeholder='Nanyang Computing'
         value=''
         minlength=20
@@ -32,7 +33,7 @@
     {% elif type == 'activity' %}
 
     <h2>Add an Activity</h2>
-    <!-- start of form -->
+    <!-- sends name, cca_id, start_date, end_date, description -->
     <form 
         action="/add" 
         method="post" 
@@ -52,9 +53,9 @@
 
     <label for="cca_id">Name of CCA:</label>
         <input 
-            id='name' 
+            id='cca_id' 
             type='text' 
-            name='name' 
+            name='cca_id' 
             placeholder='Cyberthon 2022' 
             value='' 
             size=20 
