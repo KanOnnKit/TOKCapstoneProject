@@ -8,9 +8,12 @@
 <body>
     
     {% if type == 'activity' %}
+        {% if data_dict is None %} <!-- no info sent to page -->
+<!-- sends name (of activity) -->
     <form
         action="/view"
         method="post"
+        
         id="act_info">
     <label for="name">Name of activity:</label>
         <input
@@ -22,10 +25,18 @@
             required="required"
             /><br />
     <br />
-    <input type='submit' value='Submit'/>
+    <input type='submit' value='Search'/>
     </form>
+        {% else %} <!-- info sent to page -->
+            {% for key, value in data_dict.items() %}
+                <p></p>
+            {% endfor %}
+        {% endif %}
     
     {% elif type == 'cca' %}
+        {% if data_dict is None %} <!-- no info sent to page -->
+
+<!-- sends name (of CCA) -->
     <form
         action="/view"
         method="post"
@@ -45,6 +56,9 @@
     </form>
     
     {% elif type == 'class' %}
+        {% if data_dict is None %} <!-- no info sent to page -->
+
+<!-- sends name (of class) -->
     <form
         action="/view"
         method="post"
@@ -64,6 +78,9 @@
     </form>
     
     {% elif type == 'student' %}
+        {% if data_dict is None %} <!-- no info sent to page -->
+
+<!-- sends name (of student) -->
     <form
         action="/view"
         method="post"
