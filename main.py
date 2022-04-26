@@ -1,12 +1,13 @@
 # IMPORTS
 from flask import Flask, render_template, request, abort, redirect, url_for
 
-from storage import find_primary_key
+from storage import find_primary_key, find_entry
 from helpers import get_id_from_name, get_ids_from_name
 
 # SETUP
 app = Flask(__name__)
 
+breakpoint()
 # ROUTES
 @app.route("/")
 def welcome():
@@ -114,7 +115,7 @@ def view():
         data_dict = {}
 
         # Return page request
-        return render_page_template("view.html", type=requested_page_type, data_dict)
+        # return render_page_template("view.html", type=requested_page_type, data_dict)
 
 @app.route("/edit")
 def edit():
@@ -145,6 +146,7 @@ def edit():
                 return render_template("edit.html", type=requested_page_type)
             else:
                 # Todo handle data getting
+                pass
         
     else:  # POST
         if requested_page_type is None:
@@ -170,6 +172,7 @@ def edit():
                 return redirect(url_for("edit", type=request_page_type, id=id_))  # Todo check if this is correct
         else:
             # Todo add
+            pass
     
 # MAIN CODE
 app.run("0.0.0.0")
