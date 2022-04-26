@@ -2,31 +2,25 @@
 <html>
 <head>
     <title>NYJC CCA Manager</title>
-    <style>
-        .options{
-            font-size: 150%
-        }
-        body {background-color: powderblue;}
-        h1 {color: red;}
-        p {color: blue;}
-    </style>
+    <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='style.css') }}" />
+
 </head>
     
 <body>
     <h1>What would you like to do?</h1>
     <p>Do you want to <br />
     <div class='options'>
-    <a href="/add">Add a student/cca</a><br />
-    <a href="/view">View existing student/cca</a><br />
-    <a href="/edit">Edit existing student/cca</a><br />
+
+    <a href="/add">Add a student/cca</a><br /><br />
+    <a href="/view">View existing student/cca</a><br /><br />
+    <a href="/edit">Edit existing student/cca</a><br /><br />
     </div>
     </p>
         
-    
-<div id='brought2u'>
-Brought to you by
-    H2 computing
-</div>
-    
+    <div id='brought2u'>
+    Brought to you by
+        H2 computing
+    </div>
+   
 </body>
 </html>

@@ -32,7 +32,7 @@ class Entity:
             # Set the attribute values
             for key, value in record.items():
                 # Catch ValidationError if necessary
-                fields[key].validate(value)
+                self.fields[key].validate(value)
                 
                 # Update attribute
                 setattr(self, key, value)
