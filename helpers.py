@@ -1,5 +1,6 @@
 # IMPORTS
 from storage import get_all_primary_keys_and_names
+from model import Activity, CCA, Class, Student, Subject
 
 
 # FUNCTIONS
@@ -50,3 +51,28 @@ def get_ids_from_names(names: list, type_: str) -> dict:
 
     # Return the dictionary of ID matches
     return id_matches
+
+
+def get_data_from_id(id_: str, type_) -> dict:
+    """
+    Returns the data of the specific entity with the specified ID and with the correct type.
+    Raises `ValueError` if the `type_` is invalid.
+    """
+
+    # Constants
+    type_to_model = {  # Helps convert a type string into the model class
+        "activity": Activity,
+        "cca": CCA,
+        "class": Class,
+        "student": Student,
+        "subject": Subject
+    }
+    
+    # Validate the `type_`
+    if type_ not in type_to_model.keys():
+        raise ValueError(f"Invalid entity type {type_}")
+
+    # Retrieve data
+    model = type_to_model[type_]  # Get the class of that specific type
+    obj = model(id_)  # Call constructor of model
+    return obj.to_dict()  # Return data as dictionary
