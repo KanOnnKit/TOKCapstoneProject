@@ -1,18 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>NYJC CCA Manager Home Page</title>
-    <style>
-        body {background-color: powerderblue;}
-        h1 {colour: red;}
-        p {colour: blue;}
-    </style>
+    <title>NYJC CCA Manager</title>
+    <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='style.css') }}" />
+
 </head>
     
 <body>
+    <h1>What would you like to do?</h1>
+    <p>Do you want to <br />
+    <div class='options'>
 
-<h1>My First Heading</h1>
-<p>My first paragraph.</p>
-
+    <a href="/add">Add a student/cca</a><br /><br />
+    <a href="/view">View existing student/cca</a><br /><br />
+    <a href="/edit">Edit existing student/cca</a><br /><br />
+    </div>
+    </p>
+        
+    <div id='brought2u'>
+    Brought to you by
+        H2 computing
+    </div>
+   
 </body>
 </html>
