@@ -2,9 +2,9 @@ CREATE_TABLE_STUDENT = """
 CREATE TABLE student(
     id INTEGER,
     Name TEXT,
-    Age TEXT,
-    Year_enrolled TEXT,
-    Graduating_year TEXT,
+    Age INTEGER,
+    Year_enrolled INTEGER,
+    Graduating_year INTEGER,
     PRIMARY KEY(id)
 );"""
 

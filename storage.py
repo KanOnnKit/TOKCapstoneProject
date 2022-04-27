@@ -33,16 +33,16 @@ def init(uri):
 def add_entry(table_name,values):
     conn = sqlite3.connect(uri)
     c = conn.cursor()
-    for key,value in values:
-        c.execute(f'''
-                  INSERT INTO {table_name}(
-                  ?)
-                  VALUES(?);
-                  ''', (key,values))
+    c.execute(f'''
+                  INSERT INTO {table_name} (Name,Age,Year_enrolled,Graduating_year)
+                  VALUES(:Name,:Age,:Year_enrolled,:Graduating_year);
+                  ''', (values))
+    conn.commit()
+    conn.close()
         
     
     
-def remove_entry(table_name,primary_key,uri):
+def remove_entry(table_name,primary_key):
     conn = sqlite3.connect(uri)
     c = conn.cursor()
     c.execute(f'''
@@ -50,9 +50,9 @@ def remove_entry(table_name,primary_key,uri):
               WHERE "id" = ?
               ''',(primary_key,))
     conn.commit()
-    conn.execute()
+    conn.close()
     
-def remove_relation(junction_table, match,uri): # match would contain Two diff types of id
+def remove_relation(junction_table, match): # match would contain Two diff types of id
     Flag = True
     for key in match.keys():
         if key not in TABLES[junction_table]:
@@ -66,9 +66,11 @@ def remove_relation(junction_table, match,uri): # match would contain Two diff t
                   WHERE ? = ?
                   AND ? = ?;
                   ''', (TABLES[junction_table][0],match[TABLES[junction_table][0]],TABLES[junction_table][1],match[TABLES[junction_table][1]]))
+        conn.commit()
+        conn.close()
 
 
-def edit_entry(table_name,primary_key: int, kwvalues: dict,uri):
+def edit_entry(table_name,primary_key: int, kwvalues: dict):
     conn = sqlite3.connect(uri)
     c = conn.cursor()
     for key,value in kwvalues.items():
@@ -81,7 +83,7 @@ def edit_entry(table_name,primary_key: int, kwvalues: dict,uri):
         c.execute()
         
 
-def find_entry(table,primary_key,uri): #returns entry
+def find_entry(table,primary_key): #returns entry
     outputlist = []
     conn = sqlite3.connect(uri)
     c = conn.cursor()
@@ -104,7 +106,7 @@ def find_entry(table,primary_key,uri): #returns entry
 
     return outputlist
 
-def get_all_primary_keys(table_name,uri):
+def get_all_primary_keys(table_name):
     outputlist = []
     conn = sqlite3.connect(uri)
     c = conn.cursor()
@@ -133,12 +135,4 @@ def get_all_primary_keys_and_values(table_name,uri): #dictionary
     conn.execute()
     conn.commit()
     return outputlist
-    
-        
-        
-    
-
-
-
-
 
