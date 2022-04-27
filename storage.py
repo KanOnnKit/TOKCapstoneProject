@@ -84,7 +84,7 @@ def edit_entry(table_name,primary_key: int, kwvalues: dict):
         
 
 def find_entry(table,primary_key): #returns entry
-    outputlist = []
+    outputdict = {}
     conn = sqlite3.connect(uri)
     c = conn.cursor()
     cursor = c.execute(f'''
@@ -92,19 +92,17 @@ def find_entry(table,primary_key): #returns entry
               WHERE "id" = ?;
               ''',(primary_key,))
     data = cursor.fetchall()
-    breakpoint()
 
     for row in data:
         counter = 0
-        record = {}
         for column in TABLES[table]:
-                record[column] = row[counter]
+                outputdict[column] = row[counter]
                 counter+= 1
         
     conn.commit()
     conn.execute()
 
-    return outputlist
+    return outputdict
 
 def get_all_primary_keys(table_name):
     outputlist = []
@@ -120,7 +118,7 @@ def get_all_primary_keys(table_name):
     return outputlist
 
 def get_all_primary_keys_and_values(table_name,uri): #dictionary
-    outputlist = []
+    outputdict = {}
     conn = sqlite3.connect(uri)
     c = conn.cursor()
     cursor = c.execute(f'''
@@ -129,10 +127,10 @@ def get_all_primary_keys_and_values(table_name,uri): #dictionary
     data = cursor.fetchall()
     for line in data:
         counter = 0
-        for column in TABlES[table]:
-            outputlist.append([column,line[counter]])
+        for column in TABLES[table_name]:
+            outputdict[column] = line[counter]
             counter+= 1
     conn.execute()
     conn.commit()
-    return outputlist
+    return outputdict
 
