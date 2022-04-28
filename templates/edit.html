@@ -7,22 +7,84 @@
     
 <body>
     {% if type == 'activity' %}
-        {% if associated_names is not None %}
+        {% if associated_students is not None %}
+            {% set names = associated_students %}
         <!-- information passed into form -->
         <form
         action="/edit"
         method="post"
-        id="info"
-    >
-            
+        id="info">
+            <label for='name'>Students: </label><br />
+            {% for name in names %}
+            <input 
+            id='name'
+            type='text'
+            name='student{{ loop.index }}'
+            value='{{ name }}'
+            size=20
+            required="required"
+            placeholder='leave as DEL to delete'
+            /><br />
+            {% endfor %}
+            <input type='submit' value='Submit'/>
         </form>
         {% else %}
-    
+        <form
+        action="/edit?type=activity"
+        method="post"
+        id="name">
+            <label for='name'></label>
+            <input 
+            id='name'
+            type='text'
+            name='name'
+            value=''
+            size=20
+            required="required"
+            
+            /><br />
+        </form>
         {% endif %}
     
     
     {% elif type == 'cca' %}
-    
+        {% if associated_students is not None %}
+            {% set names = associated_students %}
+        <!-- information passed into form -->
+        <form
+        action="/edit"
+        method="post"
+        id="info">
+            <label for='name'>Students: </label><br />
+            {% for name in names %}
+            <input 
+            id='name'
+            type='text'
+            name='student{{ loop.index }}'
+            value='{{ name }}'
+            size=20
+            required="required"
+            placeholder='leave as DEL to delete'
+            /><br />
+            {% endfor %}
+            <input type='submit' value='Submit'/>
+        </form>
+        {% else %}
+        <form
+        action="/edit?type=activity"
+        method="post"
+        id="name">
+            <label for='name'></label>
+            <input 
+            id='name'
+            type='text'
+            name='name'
+            value=''
+            size=20
+            required="required"
+            /><br />
+        </form>
+        {% endif %}
     
     {% elif type == 'student' %}
         {% if  %}
