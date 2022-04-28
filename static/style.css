@@ -4,20 +4,27 @@
 }
 
 body {
-    background-color: #2C2F33;
-}        
+    background-color: #90969e;
+    font-size: 30px;
+}     
+
 h1 {
-    color: whitesmoke;
+    color: black;
 }
+
 p {
-    color: lightblue;
+    color: darkblue;
 }
+
 a {
-    color: lightblue;
+    color: darkblue;
 }
+
 .options {
     font-size: 150%;
         }
+
 #brought2u {
     font-style: italic;
+    color: black;
 }
