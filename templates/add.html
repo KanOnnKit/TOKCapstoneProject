@@ -7,9 +7,8 @@
     
 <body>
     {% if type == 'cca' %}
-
+    <!-- sends name -->
     <h2>Add a CCA</h2>
-<!-- sends name -->
     <form
         action="/add"
         method="post"
@@ -26,21 +25,19 @@
         minlength=20
         /><br />
     <input type='submit' value='Submit'/>
+<!-- end of form -->
     </form>
     <p>Is this correct?</p>
-<!-- end of form -->
 
     {% elif type == 'activity' %}
-
-    <h2>Add an Activity</h2>
     <!-- sends name, cca_id, start_date, end_date, description -->
-    <!-- start of form -->
+    <h2>Add an Activity</h2>
     <form 
         action="/add" 
         method="post" 
         id="cca_info" 
     >
-
+<!-- start of form -->
     <label for="name">Name of Activity:</label>
         <input 
             id='name' 
@@ -91,17 +88,14 @@
         
     <br />
     <input type='submit' value='Submit' size=12/>
-    </form>
 <!-- end of form -->
+    </form>
     <p>Is this correct?</p>
-
-
+    
     {{% else %}}
-
+    <!-- redirects user to the correct page -->
     <a href='/add?type=cca'>Add a CCA</a><br /> 
     <a href='/add?type=activity'>Add an Activity</a>
-    
-    
     {% endif %}
     
     <div id='brought2u'>

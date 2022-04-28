@@ -2,12 +2,49 @@
 <html>
 <head>
     <title>NYJC CCA Manager</title>
+    <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='style.css') }}" />
 </head>
     
 <body>
+    {% if type == 'activity' %}
+        {% if associated_names is not None %}
+        <!-- information passed into form -->
+        <form
+        action="/edit"
+        method="post"
+        id="info"
+    >
+            
+        </form>
+        {% else %}
+    
+        {% endif %}
+    
+    
+    {% elif type == 'cca' %}
+    
+    
+    {% elif type == 'student' %}
+        {% if  %}
+    
 
-<h1>My First Heading</h1>
-<p>My first paragraph.</p>
-
+    {% else %}
+    <!-- new form -->
+    <h1>What would you like to do?</h1>
+    <p>Do you want to <br />
+        <div class='options'>
+            <a href='/edit?type=activity'>Edit a past activity</a><br /> 
+            <a href='/edit?type=cca'>Edit a CCA</a><br /> 
+            <a href='/edit?type=student'>Edit a student</a><br />
+        </div>
+    </p>
+    
+    {% endif %}
+    
+    <div id='brought2u'>
+    Brought to you by
+        H2 computing
+    </div>
+    
 </body>
 </html>
