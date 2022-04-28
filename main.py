@@ -39,7 +39,7 @@ def add():
 
     # Check if the requested page type exists
     if requested_page_type not in allowed_page_types:
-        abort(404)  # Todo: add 404 page?
+        abort(404)
         
     # Handle different page methods
     if request.method == "GET":
@@ -59,7 +59,7 @@ def add():
             form = dict(request.form)
             form_keys = form.keys()  # We will compare this with needed keys later
 
-            # Todo: also handle CCA id adding for activities
+            # Todo: also handle CCA id adding for activities (for now we do it in the edit page)
             
             # Handle data in different cases
             if requested_page_type == "activity":
@@ -71,7 +71,7 @@ def add():
                     # Save the object
                     activityObj.save()
                 else:
-                    abort(400)  # Todo: currently this raises a 400 Invalid Method error; should we show error instead?
+                    abort(400)
             else:  # The page type has to be "cca"
                 # Check if all needed parameters are present
                 if form_keys == CCA.fields.keys():  # `CCA.fields` is a set
@@ -81,7 +81,7 @@ def add():
                     # Save the object
                     ccaObj.save()
                 else:
-                    abort(400)  # Todo: currently this raises a 400 Invalid Method error; should we show error instead?
+                    abort(400)
 
             # Return acknowledgement
             return render_template("confirm.html", data=form)  # Todo: confirm format
@@ -101,7 +101,7 @@ def view():
 
     # Check if the requested page type exists
     if requested_page_type not in allowed_page_types:
-        abort(404)  # Todo: add 404 page?
+        abort(404)
 
     # Handle different page methods
     if request.method == "GET":
@@ -126,7 +126,34 @@ def view():
                 # Get the data from the correct ID and type
                 data = get_data_from_id(id_, requested_page_type)
 
-                # Todo: also handle relationship viewing
+                # Show attributed entities if the requested page type is either "cca" or "class"
+                if requested_page_type == "cca":
+                    # Get attributed activities' names
+                    records = find_entry("ccaactivity", "cca_id", id_)
+
+                    activity_names = []
+                    for record in records:
+                        activity_id = records["activity_id"]
+                        activity_obj = Activity(activity_id)  # Not particularly efficient but oh well
+                        activity_names.append(activity_obj.name)
+
+                    # Add activity names to the data dictionary
+                    data["activity_names"] = activity_names
+
+                elif requested_page_type == "class":  # Note: the implementation below isn't particularly efficient. Oh well
+                    # Get all students' IDs
+                    all_student_ids = get_all_primary_keys("student")
+
+                    # Get students with the required class
+                    student_names = []
+
+                    for student_id in all_student_ids:
+                        record = find_entry("student", "id", student_id)
+                        if record["class_id"] == id_:  # Match class ID
+                            student_names.append(record["name"])
+
+                    # Add student names to the data dictionary
+                    data["student_names"] = student_names
                 
                 # Return page request
                 return render_template("view.html", type=requested_page_type, data_dict=data)
@@ -146,7 +173,7 @@ def edit():
 
     # Check if the requested page type exists
     if requested_page_type not in allowed_page_types:
-        abort(404)  # Todo: add 404 page?
+        abort(404)
 
     # Handle different page methods
     if request.method == "GET":
@@ -162,44 +189,44 @@ def edit():
             else:
                 if requested_page_type == "activity":
                     # Get associated students' IDs
-                    records = find_entry("studentactivity", id_)  # Todo: confirm if this works with junction tables
+                    records = find_entry("studentactivity", "activity_id", id_)
 
                     # Get the names of said students
                     student_names = []
                     for record in records:
                         # This code is not particularly efficient. oh well
-                        student_obj = Student(record["id"])  # Todo: does this work?  
+                        student_obj = Student(record["id"])
                         student_names.append(student_obj.name)
                 
                     # Return request
                     return render_template("edit.html", type="activity", associated_students=student_names)
                 elif requested_page_type == "cca":
                     # Get associated students' IDs
-                    records = find_entry("studentcca", id_)  # Todo: confirm if this works with junction tables
+                    records = find_entry("studentcca", "cca_id", id_)
 
                     # Get the names of said students
                     student_names = []
                     for record in records:
                         # This code is not particularly efficient. oh well
-                        student_obj = Student(record["id"])  # Todo: does this work?  
+                        student_obj = Student(record["id"])
                         student_names.append(student_obj.name)
                     
                     # Return request
                     return render_template("edit.html", type="cca", associated_students=student_names)
                 else:  # Should be "student"
                     # Get CCA records and activity records
-                    cca_records = find_entry("studentcca", id_)  # Todo: confirm if this works with junction tables
-                    activity_records = find_entry("studentactivity", id_)  # Todo: confirm if this works with junction tables
+                    cca_records = find_entry("studentcca", "student_id", id_)
+                    activity_records = find_entry("studentactivity", "student_id", id_)
                     
                     # Get the names of the CCAs
                     cca_names = []
                     for record in cca_records:
-                        cca_obj = CCA(record["id"])  # Todo: does this work?
+                        cca_obj = CCA(record["id"])
                         cca_names.append(cca_obj.name)
                     
                     activity_names = []
                     for record in activity_records:
-                        activity_obj = Activity(record["id"])  # Todo: does this work?
+                        activity_obj = Activity(record["id"])
                         activity_names.append(activity_obj.name)
 
                     # Return request
@@ -242,7 +269,7 @@ def edit():
                 new_associated_ids = set(get_ids_from_names(associated_students, "student").values())
 
                 # Get the existing IDs of the associated students
-                records = find_entry("studentactivity", id_)  # Todo: confirm if this works with junction tables
+                records = find_entry("studentactivity", "activity_id", id_)
                 old_associated_ids = set([record["id"] for record in records])
 
                 # Compute the symmetric set difference to see what changed
@@ -255,7 +282,7 @@ def edit():
                         remove_relation("studentactivity", {"student_id": changed_id, "activity_id": id_})
                     else:
                         # The ID was added
-                        add_entry("studentactivity", {"student_id": changed_id, "activity_id": id_})  # Todo: does this work?
+                        add_entry("studentactivity", {"student_id": changed_id, "activity_id": id_}) 
             
             elif requested_page_type == "cca":
                 # We expect the request form to contain the `associated_students` key
@@ -268,7 +295,7 @@ def edit():
                 new_associated_ids = set(get_ids_from_names(associated_students, "student").values())
 
                 # Get the existing IDs of the associated students
-                records = find_entry("studentcca", id_)  # Todo: confirm if this works with junction tables
+                records = find_entry("studentcca", "cca_id", id_)
                 old_associated_ids = set([record["id"] for record in records])
 
                 # Compute the symmetric set difference to see what changed
@@ -281,7 +308,7 @@ def edit():
                         remove_relation("studentcca", {"student_id": changed_id, "cca_id": id_})
                     else:
                         # The ID was added
-                        add_entry("studentcca", {"student_id": changed_id, "cca_id": id_})  # Todo: does this work?
+                        add_entry("studentcca", {"student_id": changed_id, "cca_id": id_})
             
             else:  # Page type is student
                 # We expect the request form to contain the `associated_ccas` and `associated_activities` keys
@@ -296,10 +323,10 @@ def edit():
                 new_associated_activity_ids = set(get_ids_from_names(associated_activities, "activity").values())
 
                 # Get the existing IDs of the associated students
-                records = find_entry("studentcca", id_)  # Todo: confirm if this works with junction tables
+                records = find_entry("studentcca", "student_id", id_)
                 old_associated_cca_ids = set([record["id"] for record in records])
 
-                records = find_entry("studentactivity", id_)  # Todo: confirm if this works with junction tables
+                records = find_entry("studentactivity", "student_id", id_)
                 old_associated_activity_ids = set([record["id"] for record in records])
 
                 # Compute the symmetric set difference to see what changed
@@ -313,7 +340,7 @@ def edit():
                         remove_relation("studentcca", {"student_id": changed_id, "cca_id": id_})
                     else:
                         # The ID was added
-                        add_entry("studentcca", {"student_id": changed_id, "cca_id": id_})  # Todo: does this work?
+                        add_entry("studentcca", {"student_id": changed_id, "cca_id": id_})
 
                 for changed_id in changed_activity_ids:
                     if changed_id in old_associated_activity_ids:
@@ -321,7 +348,7 @@ def edit():
                         remove_relation("studentactivity", {"student_id": changed_id, "activity_id": id_})
                     else:
                         # The ID was added
-                        add_entry("studentactivity", {"student_id": changed_id, "activity_id": id_})  # Todo: does this work?
+                        add_entry("studentactivity", {"student_id": changed_id, "activity_id": id_})
 
             # Return acknowledgement
             return render_template("confirm.html", data=request.form)  # Todo: confirm format
