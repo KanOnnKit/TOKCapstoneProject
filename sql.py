@@ -13,7 +13,9 @@ CREATE TABLE class(
     id INTEGER,
     Name TEXT,
     Level TEXT,
-    PRIMARY KEY(id)
+    class_id INTEGER,
+    PRIMARY KEY(id),
+    FOREIGN KEY(class_id) REFERENCES class(id)
 );"""
 
 CREATE_TABLE_SUBJECT = """
@@ -32,7 +34,7 @@ CREATE TABLE cca(
 );"""
 
 CREATE_TABLE_ACTIVITY = """
-CREATE TABLE class(
+CREATE TABLE activity(
     id INTEGER,
     Name TEXT,
     Start_date TEXT,
@@ -57,6 +59,7 @@ CREATE TABLE studentactivity(
 Student_id INTEGER,
 Activity_id INTEGER,
 Category TEXT,
+Role TEXT,
 Award TEXT,
 Hours INTEGER,
 PRIMARY KEY(Student_id,Activity_id)
