@@ -6,102 +6,128 @@
 </head>
     
 <body>
-    
     {% if type == 'activity' %}
-        {% if data_dict is None %} <!-- no info sent to page -->
-<!-- sends name (of activity) -->
-    <form
-        action="/view"
-        method="post"
-        id="act_info">
-    <label for="name">Name of activity:</label>
-        <input
-            id="name"
-            type="text"
-            name="name"
-            placeholder="Cyberthon 2022"
-            size=20
-            required="required"
-            /><br />
-    <br />
-    <input type='submit' value='Search'/>
-    </form>
-        {% else %} <!-- info sent to page -->
-            {% for key, value in data_dict.items() %}
-                <p></p>
-            {% endfor %}
+        {% if data_dict is None %} 
+        <!-- no info sent to page -->
+        <!-- sends name (of activity) -->
+            <form
+                action="/view"
+                method="post"
+                id="act_info">
+            <label for="name">Name of activity:</label>
+                <input
+                    id="name"
+                    type="text"
+                    name="name"
+                    placeholder="Cyberthon 2022"
+                    size=20
+                    required="required"
+                    /><br />
+            <br />
+            <input type='submit' value='Search'/>
+            </form>
+        {% else %} 
+        <!-- info sent to page -->
+            {% set data = data_dict.items() %} <!-- data is a dictionary -->
+            <p class='search_output'>Name: {{ data['name'] }}</p><br />
+            <p class='search_output'>Associated CCA: {{ data['associated_cca'] }}</p><br />
+            <p class='search_output'>Start date: {{ data['start_date'] }}</p><br />
+            <p class='search_output'>End date: {{ data['end_date'] }}</p><br />
+            <p class='search_output' id='desc'>Description: {{ data['desc'] }}</p><br />
         {% endif %}
     
     {% elif type == 'cca' %}
-        {% if data_dict is None %} <!-- no info sent to page -->
-
-<!-- sends name (of CCA) -->
-    <form
-        action="/view"
-        method="post"
-        id="cca_info">
-    <label for="name">Name of CCA:</label>
-        <input
-            id="name"
-            type="text"
-            name="name"
-            placeholder="Nanyang Computing"
-            size=20
-            required="required"
-            /><br />
-
-    <br />
-    <input type='submit' value='Submit'/>
-    </form>
+        {% if data_dict is None %} 
+        <!-- no info sent to page -->
+        <!-- sends name (of CCA) -->
+            <form
+                action="/view"
+                method="post"
+                id="cca_info">
+            <label for="name">Name of CCA:</label>
+                <input
+                    id="name"
+                    type="text"
+                    name="name"
+                    placeholder="Nanyang Computing"
+                    size=20
+                    required="required"
+                    /><br />
+        
+            <br />
+            <input type='submit' value='Submit'/>
+            </form>
+        {% else %}
+        <!-- info sent to page -->
+            {% set data = data_dict.items() %} <!-- data is a dictionary -->
+            <p class='search_output'>Name: {{ data['name'] }}</p><br />
+            <p class='search_output'>Activities: {{ data['activity_names'] }}</p><br />
+        {% endif %}
     
     {% elif type == 'class' %}
-        {% if data_dict is None %} <!-- no info sent to page -->
+        {% if data_dict is None %}
+        <!-- no info sent to page -->
+        <!-- sends name (of class) -->
+            <form
+                action="/view"
+                method="post"
+                id="cca_info">
+            <label for="name">Name of class:</label>
+                <input
+                    id="name"
+                    type="text"
+                    name="name"
+                    placeholder="2113"
+                    size=20
+                    required="required"
+                    /><br />
+        
+            <br />
+            <input type='submit' value='Submit'/>
+            </form>
 
-<!-- sends name (of class) -->
-    <form
-        action="/view"
-        method="post"
-        id="cca_info">
-    <label for="name">Name of class:</label>
-        <input
-            id="name"
-            type="text"
-            name="name"
-            placeholder="2113"
-            size=20
-            required="required"
-            /><br />
-
-    <br />
-    <input type='submit' value='Submit'/>
-    </form>
+        {% else %}
+        <!-- info sent to page -->
+            {% set data = data_dict.items() %} <!-- data is a dictionary -->
+            <p class='search_output'>Name: {{ data['name'] }}</p><br />
+            <p class='search_output'>Level: {{ data['level'] }}</p><br />
+            <p class='search_output'>Students: {{ data['student_names'] }}</p><br />
+        {% endif %}    
     
     {% elif type == 'student' %}
-        {% if data_dict is None %} <!-- no info sent to page -->
-
-<!-- sends name (of student) -->
-    <form
-        action="/view"
-        method="post"
-        id="cca_info">
-    <label for="name">Name of student:</label>
-        <input
-            id="name"
-            type="text"
-            name="name"
-            placeholder="Tan Onn Kit"
-            size=20
-            required="required"
-            /><br />
-
-    <br />
-    <input type='submit' value='Submit'/>
-    </form>
+        {% if data_dict is None %} 
+        <!-- no info sent to page -->
+        <!-- sends name (of student) -->
+            <form
+                action="/view"
+                method="post"
+                id="cca_info">
+            <label for="name">Name of student:</label>
+                <input
+                    id="name"
+                    type="text"
+                    name="name"
+                    placeholder="Tan Onn Kit"
+                    size=20
+                    required="required"
+                    /><br />
+        
+            <br />
+            <input type='submit' value='Submit'/>
+            </form>
     
-    {% else %} <!-- new form -->
+        {% else %}
+        <!-- info sent to page -->
+            {% set data = data_dict.items() %} <!-- data is a dictionary -->
+            <p class='search_output'>Name: {{ data['name'] }}</p><br />
+            <p class='search_output'>Age: {{ data['age'] }}</p><br />
+            <p class='search_output'>Year enrolled: {{ data['year_enrolled'] }}</p><br />
+            <p class='search_output'>Graduation year: {{ data['graduating_year'] }}</p><br />
+        {% endif %}
     
+    {% else %} 
+    <!-- new form -->
     <h1>What would you like to do?</h1>
-    
     <p>Do you want to <br />
         <div class='options'>
             <a href='/view?type=activity'>View a past activity</a><br /> 
@@ -110,8 +136,8 @@
             <a href='/view?type=student'>View a student</a><br />
         </div>
     </p>
-
     {% endif %}
+    
     <div id='brought2u'>
     Brought to you by
         H2 computing
@@ -123,6 +149,5 @@
         <option value="robotics">NY Robotics Club</option>
         <option value="flball">NY Floorball</option>
         <option value="scouncil">NY Student Council</option>
-
 </body>
 </html>
