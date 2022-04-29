@@ -2,14 +2,14 @@ body {
     background-color: #90969e;
     font-size: 22px;
     font-family: 'Roboto', sans-serif;
-}     
+}
 
 h1 {
     color: black;
-    font-weight: 200;        
+    font-weight: 200;
 }
 
-.mainpage{
+.mainpage {
     background-color: #bbc3ce;
     margin: auto;
     width: 80%;
@@ -21,7 +21,7 @@ p {
     color: darkblue;
 }
 
-p.confirm{
+p.confirm {
     color: darkred;
 }
 
@@ -31,14 +31,14 @@ a {
 
 .options {
     font-size: 150%;
-        }
+}
 
 #brought2u {
     font-style: italic;
     color: black;
 }
 
-.success{
+.success {
     font-family: 'Ma Shan Zheng', cursive;
     font-size: 44px;
 }
