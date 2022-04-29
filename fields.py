@@ -1,7 +1,7 @@
 import validate as valid
 
 class Field:
-    def __init__ (self, name: str, label: str, value: str):
+    def __init__ (self, name: str, label: str):
         self.name= name
         self.label= label
         
