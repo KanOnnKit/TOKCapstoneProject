@@ -1,149 +1,154 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>NYJC CCA Manager</title>
+<title>NYJC CCA Manager</title>
     <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='style.css') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-    
-<body>
-    <h1>NYJC CCA Records Manager</h1>
-    
-    {% if type == 'activity' %}
-        {% if data_dict is not defined %} 
-        <!-- no info sent to page -->
-        <!-- sends name (of activity) -->
-            <form
-                action="/view?type=activity"
-                method="post"
-                id="act_info">
-            <label for="name">Name of activity:</label>
-                <input
-                    id="name"
-                    type="text"
-                    name="name"
-                    placeholder="Cyberthon 2022"
-                    size=20
-                    required="required"/><br />
-            <br />
-            <input type='submit' value='Search'/>
-            </form>
-        {% else %} 
-        <!-- info sent to page -->
-            {% set data = data_dict %} <!-- data is a dictionary -->
-            <p class='search_output'>Name: {{ data['name'] }}</p><br />
-            <p class='search_output'>Associated CCA: {{ data['associated_cca'] }}</p><br />
-            <p class='search_output'>Start date: {{ data['start_date'] }}</p><br />
-            <p class='search_output'>End date: {{ data['end_date'] }}</p><br />
-            <p class='search_output' id='desc'>Description: {{ data['desc'] }}</p><br />
-        {% endif %}
-    
-    {% elif type == 'cca' %}
-        {% if data_dict is not defined %} 
-        <!-- no info sent to page -->
-        <!-- sends name (of CCA) -->
-            <form
-                action="/view?type=cca"
-                method="post"
-                id="cca_info">
-            <label for="name">Name of CCA:</label>
-                <input
-                    id="name"
-                    type="text"
-                    name="name"
-                    placeholder="Nanyang Computing"
-                    size=20
-                    required="required"/><br />
-        
-            <br />
-            <input type='submit' value='Submit'/>
-            </form>
-        {% else %}
-        <!-- info sent to page -->
-            {% set data = data_dict %} <!-- data is a dictionary -->
-            <p class='search_output'>Name: {{ data['name'] }}</p><br />
-            <p class='search_output'>Activities: {{ data['activity_names'] }}</p><br />
-        {% endif %}
-    
-    {% elif type == 'class' %}
-        {% if data_dict is not defined %}
-        <!-- no info sent to page -->
-        <!-- sends name (of class) -->
-            <form
-                action="/view?type=class"
-                method="post"
-                id="cca_info">
-            <label for="name">Name of class:</label>
-                <input
-                    id="name"
-                    type="text"
-                    name="name"
-                    placeholder="2113"
-                    size=20
-                    required="required"/><br />
-        
-            <br />
-            <input type='submit' value='Submit'/>
-            </form>
 
-        {% else %}
-        <!-- info sent to page -->
-            {% set data = data_dict %} <!-- data is a dictionary -->
-            <p class='search_output'>Name: {{ data['name'] }}</p><br />
-            <p class='search_output'>Level: {{ data['level'] }}</p><br />
-            <p class='search_output'>Students: {{ data['student_names'] }}</p><br />
-        {% endif %}    
-    
-    {% elif type == 'student' %}
-        {% if data_dict is not defined %} 
-        <!-- no info sent to page -->
-        <!-- sends name (of student) -->
-            <form
-                action="/view?type=student"
-                method="post"
-                id="cca_info">
-            <label for="name">Name of student:</label>
-                <input
-                    id="name"
-                    type="text"
-                    name="name"
-                    placeholder="TAN ONN KIT"
-                    size=20
-                    required="required"/><br />
-        
-            <br />
-            <input type='submit' value='Submit'/>
-            </form>
-    
-        {% else %}
-        <!-- info sent to page -->
-            {% set data = data_dict %} <!-- data is a dictionary -->
-            <p class='search_output'>Name: {{ data['name'] }}</p><br />
-            <p class='search_output'>Age: {{ data['age'] }}</p><br />
-            <p class='search_output'>Year enrolled: {{ data['year_enrolled'] }}</p><br />
-            <p class='search_output'>Graduation year: {{ data['graduating_year'] }}</p><br />
-        {% endif %}
-    
+<body>
+    <h1 class='pageheader'>
+        <a href="/">
+            <button class="btn"><i class="fa fa-home"></i> Home</button></a>
+        NYJC CCA Records Manager
+    </h1>
+
+{% if type == 'activity' %}
+    {% if data_dict is not defined %} 
+    <!-- no info sent to page -->
+    <!-- sends name (of activity) -->
+        <form
+            action="/view?type=activity"
+            method="post"
+            id="act_info">
+        <label for="name">Name of activity:</label>
+            <input
+                id="name"
+                type="text"
+                name="name"
+                placeholder="Cyberthon 2022"
+                size=20
+                required="required"/><br />
+        <br />
+        <input type='submit' value='Search'/>
+        </form>
     {% else %} 
-    <!-- new form -->
-    <h1 class="subheader">What would you like to do?</h1>
-    <div class='mainpage'>
-    <p>
-        Do you want to:<br />
-        <p class='options'>
-            <a href='/view?type=activity'>View a past activity</a><br /><br />
-            <a href='/view?type=cca'>View a CCA</a><br /><br />
-            <a href='/view?type=class'>View a class</a><br /><br />
-            <a href='/view?type=student'>View a student</a><br />
-        </p>
-    </p>
-    </div>
+    <!-- info sent to page -->
+        {% set data = data_dict %} <!-- data is a dictionary -->
+        <p class='search_output'>Name: {{ data['name'] }}</p><br />
+        <p class='search_output'>Associated CCA: {{ data['associated_cca'] }}</p><br />
+        <p class='search_output'>Start date: {{ data['start_date'] }}</p><br />
+        <p class='search_output'>End date: {{ data['end_date'] }}</p><br />
+        <p class='search_output' id='desc'>Description: {{ data['desc'] }}</p><br />
     {% endif %}
+
+{% elif type == 'cca' %}
+    {% if data_dict is not defined %} 
+    <!-- no info sent to page -->
+    <!-- sends name (of CCA) -->
+        <form
+            action="/view?type=cca"
+            method="post"
+            id="cca_info">
+        <label for="name">Name of CCA:</label>
+            <input
+                id="name"
+                type="text"
+                name="name"
+                placeholder="Nanyang Computing"
+                size=20
+                required="required"/><br />
     
-    <br />
-    <div id='brought2u'>
-    Brought to you by
-        H2 computing
-    </div>
+        <br />
+        <input type='submit' value='Submit'/>
+        </form>
+    {% else %}
+    <!-- info sent to page -->
+        {% set data = data_dict %} <!-- data is a dictionary -->
+        <p class='search_output'>Name: {{ data['name'] }}</p><br />
+        <p class='search_output'>Activities: {{ data['activity_names'] }}</p><br />
+    {% endif %}
+
+{% elif type == 'class' %}
+    {% if data_dict is not defined %}
+    <!-- no info sent to page -->
+    <!-- sends name (of class) -->
+        <form
+            action="/view?type=class"
+            method="post"
+            id="cca_info">
+        <label for="name">Name of class:</label>
+            <input
+                id="name"
+                type="text"
+                name="name"
+                placeholder="2113"
+                size=20
+                required="required"/><br />
+    
+        <br />
+        <input type='submit' value='Submit'/>
+        </form>
+
+    {% else %}
+    <!-- info sent to page -->
+        {% set data = data_dict %} <!-- data is a dictionary -->
+        <p class='search_output'>Name: {{ data['name'] }}</p><br />
+        <p class='search_output'>Level: {{ data['level'] }}</p><br />
+        <p class='search_output'>Students: {{ data['student_names'] }}</p><br />
+    {% endif %}    
+
+{% elif type == 'student' %}
+    {% if data_dict is not defined %} 
+    <!-- no info sent to page -->
+    <!-- sends name (of student) -->
+        <form
+            action="/view?type=student"
+            method="post"
+            id="cca_info">
+        <label for="name">Name of student:</label>
+            <input
+                id="name"
+                type="text"
+                name="name"
+                placeholder="TAN ONN KIT"
+                size=20
+                required="required"/><br />
+    
+        <br />
+        <input type='submit' value='Submit'/>
+        </form>
+
+    {% else %}
+    <!-- info sent to page -->
+        {% set data = data_dict %} <!-- data is a dictionary -->
+        <p class='search_output'>Name: {{ data['name'] }}</p><br />
+        <p class='search_output'>Age: {{ data['age'] }}</p><br />
+        <p class='search_output'>Year enrolled: {{ data['year_enrolled'] }}</p><br />
+        <p class='search_output'>Graduation year: {{ data['graduating_year'] }}</p><br />
+    {% endif %}
+
+{% else %} 
+<!-- new form -->
+<h1 class="subheader">What would you like to do?</h1>
+<div class='mainpage'>
+<p>
+    Do you want to:<br />
+    <p class='options'>
+        <a href='/view?type=activity'>View a past activity</a><br /><br />
+        <a href='/view?type=cca'>View a CCA</a><br /><br />
+        <a href='/view?type=class'>View a class</a><br /><br />
+        <a href='/view?type=student'>View a student</a><br />
+    </p>
+</p>
+</div>
+{% endif %}
+
+<br />
+<div id='brought2u'>
+Brought to you by
+    H2 computing
+</div>
 
 </body>
 </html>

@@ -3,10 +3,16 @@
 <head>
     <title>NYJC CCA Manager</title>
     <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='style.css') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
 </head>
     
 <body>
-    <h1>NYJC CCA Records Manager</h1>
+    <h1 class='pageheader'>
+        <a href="/">
+            <button class="btn"><i class="fa fa-home"></i> Home</button></a>
+        NYJC CCA Records Manager
+    </h1>
     
     {% if type == 'cca' %}
     <!-- sends name -->
@@ -26,10 +32,12 @@
         value=''
         size=20
         required="required"/><br />
-    <input type='submit' value='Submit'/>
+    <p class='confirm'>
+        <strong>Is this correct?</strong>
+        <input type='submit' value='Submit'/>
+    </p>
 <!-- end of form -->
     </form>
-    <p class='confirm'>Is this correct?</p>
 
     {% elif type == 'activity' %}
     <!-- sends name, cca_id, start_date, end_date, description -->
