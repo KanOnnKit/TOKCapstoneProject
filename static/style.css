@@ -65,6 +65,10 @@ form.form_body{
   cursor: pointer;
 }
 
+.error {
+    color: red;
+}
+
 /* Darker background on mouse-over */
 .btn:hover {
   background-color: #ff5d00;

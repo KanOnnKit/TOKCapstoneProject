@@ -33,7 +33,17 @@
                 required><br />
         <br />
         <input type='submit' value='Search'/>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                <p class="error">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
         </form>
+
+        
     </div>
     {% else %} 
     <!-- info sent to page -->
@@ -68,6 +78,14 @@
         <br />
         <input type='submit' value='Submit'/>
         </form>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                <p class="error">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
     </div>
     {% else %}
     <!-- info sent to page -->
@@ -100,6 +118,14 @@
         <br />
         <input type='submit' value='Submit'/>
         </form>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                <p class="error">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
     </div>
     {% else %}
     <!-- info sent to page -->
@@ -133,6 +159,14 @@
         <br />
         <input type='submit' value='Submit'/>
         </form>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                <p class="error">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
     </div>
     {% else %}
     <!-- info sent to page -->

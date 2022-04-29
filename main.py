@@ -1,13 +1,17 @@
 # IMPORTS
-from flask import Flask, render_template, request, abort, redirect, url_for
+import secrets
+
+from flask import Flask, render_template, request, abort, flash, redirect, url_for
 
 from model import Activity, CCA, Student
-from storage import init_db, find_entry, add_entry, add_relation, remove_relation, get_all_primary_keys
+from storage import init_db, find_entry, add_relation, remove_relation, get_all_primary_keys
 from helpers import get_id_from_name, get_ids_from_names, get_data_from_id
 from validation import ValidationError
 
 # SETUP
 app = Flask(__name__)
+app.secret_key = secrets.token_urlsafe(16)
+print("Secret key:", app.secret_key)
 
 
 # ROUTES
@@ -59,7 +63,7 @@ def add():
             try:
                 if requested_page_type == "activity":
                     # Check if all needed parameters are present
-                    if form_keys == Activity.fields.keys():  # Todo: does this work?
+                    if form_keys == Activity.fields.keys():
                         # Create new CCA object using the data
                         activity_obj = Activity.from_dict(form)
 
@@ -153,6 +157,10 @@ def view():
             else:
                 # Get the ID based on the name and page type
                 id_ = get_id_from_name(name, requested_page_type)
+
+                # Check if an actual ID was returned
+                if id_ is None:
+                    flash(f"Unknown name '{name}'. Did you enter it correctly?")
 
                 # Redirect to correct page
                 return redirect(url_for("view", type=requested_page_type, id=id_))  # Todo check if this is correct
@@ -252,6 +260,10 @@ def edit():
             else:
                 # Get the ID based off the name
                 id_ = get_id_from_name(name, requested_page_type)
+
+                # Check if an actual ID was returned
+                if id_ is None:
+                    flash(f"Unknown name '{name}'. Did you enter it correctly?")
 
                 # Redirect to correct page
                 return redirect(url_for("edit", type=requested_page_type, id=id_))  # Todo check if this is correct
