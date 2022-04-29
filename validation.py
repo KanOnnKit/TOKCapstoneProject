@@ -1,6 +1,7 @@
 from datetime import datetime
 
-class ValidationError(Exception): pass
+class ValidationError(Exception):
+    pass
 
 def validate_integer(val):
     if isinstance(val, int):
@@ -19,7 +20,7 @@ def validate_string(val):
 
 def validate_date(val):
     try:
-        datetime.formisoformat(val)
-    except:
+        datetime.fromisoformat(val)
+    except ValueError:
         return False
     return True

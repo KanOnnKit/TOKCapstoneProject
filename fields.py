@@ -1,4 +1,4 @@
-import validate as valid
+import validation as valid
 
 class Field:
     def __init__ (self, name: str, label: str):

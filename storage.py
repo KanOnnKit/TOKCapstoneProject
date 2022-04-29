@@ -2,21 +2,6 @@ import sqlite3
 
 import sql
 
-def init(uri):    
-    conn = sqlite3.connect(uri)
-    c = conn.cursor()
-    c.execute(sql.CREATE_TABLE_STUDENT)
-    c.execute(sql.CREATE_TABLE_CCA)
-    c.execute(sql.CREATE_TABLE_ACTIVITY)
-    c.execute(sql.CREATE_TABLE_SUBJECT)
-    c.execute(sql.CREATE_TABLE_CLASS)
-    conn.commit()
-    c.execute(sql.CREATE_TABLE_STUDENTCCA)
-    c.execute(sql.CREATE_TABLE_STUDENTACTIVITY)
-    c.execute(sql.CREATE_TABLE_STUDENTSUBJECT)
-    conn.commit()
-    conn.close()
-
 uri = "Database_for_capstone.db"
 
 TABLES = {
@@ -116,7 +101,7 @@ def edit_entry(table_name,primary_key: int, kwvalues: dict):
     conn.close()
         
 
-def find_entry(table,primary_key,pk_columnname): #returns entry
+def find_entry(table, pk_columnname, primary_key): #returns entry
     outputdict = {}
     conn = sqlite3.connect(uri)
     c = conn.cursor()
@@ -127,7 +112,7 @@ def find_entry(table,primary_key,pk_columnname): #returns entry
     data = cursor.fetchall()
 
     for row in data:
-        counter = 0
+        counter = 1
         for column in TABLES[table][1:]:
                 outputdict[column] = row[counter]
                 counter+= 1
@@ -151,21 +136,20 @@ def get_all_primary_keys(table_name):
     conn.close()
     return outputlist
 
-def get_all_primary_keys_and_values(table_name): #dictionary
+def get_all_primary_keys_and_names(table_name): #dictionary
     outputlist = []
-    outputdict = {}
     conn = sqlite3.connect(uri)
     c = conn.cursor()
     cursor = c.execute(f'''
-                       SELECT "id","Name" FROM {table_name};
+                       SELECT "id","name" FROM {table_name};
                        ''')
     data = cursor.fetchall()
     for line in data:
+        outputdict = {}
         counter = 0
-        for column in ["id","Name"]:
+        for column in ["id","name"]:
             outputdict[column] = line[counter]
             counter+= 1
         outputlist.append(outputdict)
     conn.close()
     return outputlist
-

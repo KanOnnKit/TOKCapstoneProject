@@ -2,7 +2,7 @@
 from flask import Flask, render_template, request, abort, redirect, url_for
 
 from model import Activity, CCA, Student
-from storage import find_entry, add_entry,remove_relation, get_all_primary_keys
+from storage import init, find_entry, add_entry, remove_relation, get_all_primary_keys
 from helpers import get_id_from_name, get_ids_from_names, get_data_from_id
 
 # SETUP
@@ -10,14 +10,6 @@ app = Flask(__name__)
 
 # ROUTES
 @app.route("/")
-def welcome():
-    """
-    Splash page of the website.
-    """
-    return render_template("splash.html")
-
-
-@app.route("/index")
 def index():
     """
     Index page of the website, showing user available actions that they can take.
@@ -57,9 +49,9 @@ def add():
         else:
             # Get the form data
             form = dict(request.form)
-            form_keys = form.keys()  # We will compare this with needed keys later
 
-            # Todo: also handle CCA id adding for activities (for now we do it in the edit page)
+            # Get the form keys
+            form_keys = form.keys()  # We will compare this with needed keys later
             
             # Handle data in different cases
             if requested_page_type == "activity":
@@ -96,8 +88,9 @@ def view():
     # Constants
     allowed_page_types = {None, "activity", "cca", "class", "student"}  # Use a set for O(1) membership test
 
-    # Get the requested page type
+    # Get the requested page type and the ID of the entity
     requested_page_type = request.args.get("type", None)
+    id_ = request.args.get("id", None)
 
     # Check if the requested page type exists
     if requested_page_type not in allowed_page_types:
@@ -105,10 +98,48 @@ def view():
 
     # Handle different page methods
     if request.method == "GET":
-        if requested_page_type is None:
-            return render_template("view.html")
-        else:
+        if requested_page_type is not None and id_ is not None:
+            # Get the data from the correct ID and type
+            data = get_data_from_id(id_, requested_page_type)
+
+            # Show attributed entities if the requested page type is either "cca" or "class"
+            if requested_page_type == "cca":
+                # Get attributed activities' names
+                records = find_entry("ccaactivity", "cca_id", id_)
+
+                activity_names = []
+                for record in records:
+                    activity_id = records["activity_id"]
+                    activity_obj = Activity(activity_id)  # Not particularly efficient but oh well
+                    activity_names.append(activity_obj.name)
+
+                # Add activity names to the data dictionary
+                data["activity_names"] = activity_names
+
+            elif requested_page_type == "class":  # Note: the implementation below isn't particularly efficient. Oh well
+                # Get all students' IDs
+                all_student_ids = get_all_primary_keys("student")
+
+                # Get students with the required class
+                student_names = []
+
+                for student_id in all_student_ids:
+                    record = find_entry("student", "id", student_id)
+                    if record["class_id"] == id_:  # Match class ID
+                        student_names.append(record["name"])
+
+                # Add student names to the data dictionary
+                data["student_names"] = student_names
+            
+            # Return page request
+            return render_template("view.html", type=requested_page_type, data_dict=data)
+
+        elif requested_page_type is not None:
             return render_template("view.html", type=requested_page_type)
+            
+        else:
+            return render_template("view.html")
+            
             
     else:  # POST
         if requested_page_type is None:
@@ -116,47 +147,19 @@ def view():
             abort(405)
 
         else:
-            # Try and get the ID
-            id_ = request.args.get("id", None)
+            # Try and get the name
+            name = request.form.get("name", None)
 
-            # Handle different cases depending on whether the ID is present
-            if id_ is None:
+            # Handle different cases depending on whether the name is present
+            if name is None:
                 return render_template("view.html", type=requested_page_type)
             else:
-                # Get the data from the correct ID and type
-                data = get_data_from_id(id_, requested_page_type)
+                # Get the ID based on the name and page type
+                id_ = get_id_from_name(name, requested_page_type)
+                print(id_)
 
-                # Show attributed entities if the requested page type is either "cca" or "class"
-                if requested_page_type == "cca":
-                    # Get attributed activities' names
-                    records = find_entry("ccaactivity", "cca_id", id_)
-
-                    activity_names = []
-                    for record in records:
-                        activity_id = records["activity_id"]
-                        activity_obj = Activity(activity_id)  # Not particularly efficient but oh well
-                        activity_names.append(activity_obj.name)
-
-                    # Add activity names to the data dictionary
-                    data["activity_names"] = activity_names
-
-                elif requested_page_type == "class":  # Note: the implementation below isn't particularly efficient. Oh well
-                    # Get all students' IDs
-                    all_student_ids = get_all_primary_keys("student")
-
-                    # Get students with the required class
-                    student_names = []
-
-                    for student_id in all_student_ids:
-                        record = find_entry("student", "id", student_id)
-                        if record["class_id"] == id_:  # Match class ID
-                            student_names.append(record["name"])
-
-                    # Add student names to the data dictionary
-                    data["student_names"] = student_names
-                
-                # Return page request
-                return render_template("view.html", type=requested_page_type, data_dict=data)
+                # Redirect to correct page
+                return redirect(url_for("view", type=requested_page_type, id=id_))  # Todo check if this is correct
 
 
 @app.route("/edit")
@@ -210,7 +213,7 @@ def edit():
                         # This code is not particularly efficient. oh well
                         student_obj = Student(record["id"])
                         student_names.append(student_obj.name)
-                    
+                    ri
                     # Return request
                     return render_template("edit.html", type="cca", associated_students=student_names)
                 else:  # Should be "student"
@@ -356,4 +359,8 @@ def edit():
 
 # MAIN CODE
 if __name__ == "__main__":
+    # Initalise database
+    init()
+
+    # Run the app
     app.run("0.0.0.0")
