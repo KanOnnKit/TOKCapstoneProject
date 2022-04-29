@@ -18,9 +18,10 @@
         {% if associated_students is defined %}
             {% set names = associated_students %}
         <!-- information passed into form -->
+        <p>Enter names below, placing each name on a separate line.</p>
         <div class="mainpage">
             <form
-            action="/edit?type=activity"
+            action="/edit?type=activity&id={{ id }}"
             method="post"
             id="info"
             class="form_body">
@@ -49,15 +50,16 @@
             </form>
         </div>
         {% endif %}
-    
-    
+
+
     {% elif type == 'cca' %}
         {% if associated_students is defined %}
             {% set names = associated_students %}
         <!-- information passed into form -->
+        <p>Enter names below, placing each name on a separate line.</p>
         <div class="mainpage">
             <form
-            action="/edit?type=cca"
+            action="/edit?type=cca?id={{ id }}"
             method="post"
             id="info"
             class="form_body">
@@ -86,15 +88,16 @@
             </form>
         </div>
         {% endif %}
-    
+
     {% elif type == 'student' %}
         {% if associated_ccas is defined %}
             {% set ccas = associated_ccas %}
             {% set acts = associated_activities %}
     <!-- information passed into form -->
         <div class="mainpage">
+          <p>Enter names in the following fields, placing each name on a separate line.</p>
             <form
-            action="/edit?type=student"
+            action="/edit?type=student&id={{ id }}"
             method="post"
             id="info"
             class="form_body">

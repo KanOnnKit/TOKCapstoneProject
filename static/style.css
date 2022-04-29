@@ -10,10 +10,10 @@ h1.subheader{
 
 h1 {
     color: black;
-    font-weight: 200;        
+    font-weight: 200;
 }
 
-.mainpage{
+.mainpage {
     background-color: #bbc3ce;
     margin: auto;
     width: 80%;
@@ -25,7 +25,7 @@ p {
     color: darkblue;
 }
 
-p.confirm{
+p.confirm {
     color: darkred;
     font-style: bolder;
 }
@@ -36,14 +36,14 @@ a {
 
 .options {
     font-size: 150%;
-        }
+}
 
 #brought2u {
     font-style: italic;
     color: black;
 }
 
-.success{
+.success {
     font-family: 'Ma Shan Zheng', cursive;
     font-size: 44px;
     font-color: grey;

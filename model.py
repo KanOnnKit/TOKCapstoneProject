@@ -1,6 +1,9 @@
 # IMPORTS
+from typing import Optional
+
 from fields import IntegerField, StringField, SelectorField, DateField
 from storage import add_entry, edit_entry, find_entry
+from validation import ValidationError
 
 
 # CLASSES
@@ -18,27 +21,37 @@ class Entity:
     table_name = NotImplemented
 
     # Magic methods
-    def __init__(self, id_: str) -> None:
+    def __init__(self, id_: Optional[str]) -> None:
         """
         Initialisation method for the abstract `Entity` class.
 
-        If the validation fails, raises a `ValueError`.
+        If the validation fails, raises a `ValidationError`.
+
+        Otherwise, if invalid value for 
         """
 
         if id_ is not None:
             # Get the data of this entity from the database
-            record = find_entry(self.table_name, id_)  # Primary key is `id_`
-    
+            try:
+                record = find_entry(self.table_name, "id", int(id_))[0]  # Should be unique PK
+            except ValueError:
+                raise ValidationError(f"Invalid ID {id_}")
+            except IndexError:  # No records returned => ID not found
+                raise KeyError("ID not found")
+
+            # Ignore the ID column of the record
+            record.pop("id")
+            
             # Set the attribute values
             for key, value in record.items():
                 # Catch ValidationError if necessary
-                fields[key].validate(value)
+                self.fields[key].validate(value)
                 
                 # Update attribute
                 setattr(self, key, value)
 
         # Also save the PK as an attribute
-        self._id = id_  # We want this to be pseudo-private
+        self._id = int(id_) if id_ is not None else None
 
     def __repr__(self) -> str:
         return f"{self.__name__}({self._id})"  # Will be overwritten in subclasses
@@ -99,9 +112,10 @@ class Entity:
 
         # Set the attributes of this new entity based on the dictionary
         for key, value in dictionary.items():
-            # field = self.fields[key]
+            field = cls.fields[key]
+
             # This will raise validation.ValidationError if validation fails
-            # field.validate(value)
+            field.validate(value)
             setattr(obj, key, value)
 
         # Return the new object
@@ -120,7 +134,12 @@ class Subject(Entity):
     """
 
     fields = {
-        "name": SelectorField("name", "Name of Subject", {"CLL", "PW", "MATH", "HIST", "PHY", "CHEM", "ML", "TL", "CLB", "GEO", "BENGALESE", "JAPANESE", "HINDI", "BIO", "CLTRANS", "PUNJABI", "FM", "CL", "ECONS", "GP", "ART", "ELIT", "COMP"}),
+        "name": SelectorField(
+            "name",
+            "Name of Subject",
+            {"CLL", "PW", "MATH", "HIST", "PHY", "CHEM", "ML", "TL", "CLB", "GEO", "BENGALESE", "JAPANESE", "HINDI",
+             "BIO", "CLTRANS", "PUNJABI", "FM", "CL", "ECONS", "GP", "ART", "ELIT", "COMP"}
+        ),
         "level": SelectorField("level", "Subject Level", {"H1", "H2", "H3"})
     }
     table_name = "subject"
@@ -133,6 +152,7 @@ class Student(Entity):
     Has the following fields:
         - name: Name of the student (string)
         - age: Age of the student (integer)
+        - class_id: Class Identification Number (integer)
         - year_enrolled: Year that the student enrolled (integer)
         - graduating_year: Year that the student will graduate (integer)
 
@@ -142,6 +162,7 @@ class Student(Entity):
     fields = {
         "name": StringField("name", "Name of the Student"),
         "age": IntegerField("age", "Student Age"),
+        "class_id": IntegerField("class_id", "Class ID"),
         "year_enrolled": IntegerField("year_enrolled", "Year Enrolled"),
         "graduating_year": IntegerField("graduating_year", "Year of Graduation")
     }

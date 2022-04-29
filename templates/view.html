@@ -30,7 +30,7 @@
                 name="name"
                 placeholder="Cyberthon 2022"
                 size=20
-                required="required"/><br />
+                required><br />
         <br />
         <input type='submit' value='Search'/>
         </form>
@@ -40,7 +40,6 @@
         {% set data = data_dict %} <!-- data is a dictionary -->
     <div class="mainpage">
         <p class='search_output'>Name: {{ data['name'] }}</p><br />
-        <p class='search_output'>Associated CCA: {{ data['associated_cca'] }}</p><br />
         <p class='search_output'>Start date: {{ data['start_date'] }}</p><br />
         <p class='search_output'>End date: {{ data['end_date'] }}</p><br />
         <p class='search_output' id='desc'>Description: {{ data['desc'] }}</p><br />
