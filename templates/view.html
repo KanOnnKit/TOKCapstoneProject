@@ -27,7 +27,7 @@
             </form>
         {% else %} 
         <!-- info sent to page -->
-            {% set data = data_dict.items() %} <!-- data is a dictionary -->
+            {% set data = data_dict %} <!-- data is a dictionary -->
             <p class='search_output'>Name: {{ data['name'] }}</p><br />
             <p class='search_output'>Associated CCA: {{ data['associated_cca'] }}</p><br />
             <p class='search_output'>Start date: {{ data['start_date'] }}</p><br />
@@ -57,7 +57,7 @@
             </form>
         {% else %}
         <!-- info sent to page -->
-            {% set data = data_dict.items() %} <!-- data is a dictionary -->
+            {% set data = data_dict %} <!-- data is a dictionary -->
             <p class='search_output'>Name: {{ data['name'] }}</p><br />
             <p class='search_output'>Activities: {{ data['activity_names'] }}</p><br />
         {% endif %}
@@ -85,7 +85,7 @@
 
         {% else %}
         <!-- info sent to page -->
-            {% set data = data_dict.items() %} <!-- data is a dictionary -->
+            {% set data = data_dict %} <!-- data is a dictionary -->
             <p class='search_output'>Name: {{ data['name'] }}</p><br />
             <p class='search_output'>Level: {{ data['level'] }}</p><br />
             <p class='search_output'>Students: {{ data['student_names'] }}</p><br />
@@ -114,7 +114,7 @@
     
         {% else %}
         <!-- info sent to page -->
-            {% set data = data_dict.items() %} <!-- data is a dictionary -->
+            {% set data = data_dict %} <!-- data is a dictionary -->
             <p class='search_output'>Name: {{ data['name'] }}</p><br />
             <p class='search_output'>Age: {{ data['age'] }}</p><br />
             <p class='search_output'>Year enrolled: {{ data['year_enrolled'] }}</p><br />
