@@ -11,7 +11,7 @@
             {% set names = associated_students %}
         <!-- information passed into form -->
         <form
-        action="/edit"
+        action="/edit?type=activity"
         method="post"
         id="info">
             <label for='name'>Students: </label><br />
@@ -52,7 +52,7 @@
             {% set names = associated_students %}
         <!-- information passed into form -->
         <form
-        action="/edit"
+        action="/edit?type=cca"
         method="post"
         id="info">
             <label for='name'>Students: </label><br />
@@ -92,7 +92,7 @@
             {% set acts = associated_activities %}
     <!-- information passed into form -->
         <form
-        action="/edit"
+        action="/edit?type=student"
         method="post"
         id="info">
             <div class='student_info' id='cca'>

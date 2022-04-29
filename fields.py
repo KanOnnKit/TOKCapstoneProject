@@ -1,4 +1,12 @@
+# IMPORTS
 import validation as valid
+
+"""
+Class Fields define the different types of field for entities- to be used in model.py.
+Has the following fields:
+IntegerField, SelectorField, StringField, Datefield.
+To validate each fields using validation.py
+"""
 
 class Field:
     def __init__ (self, name: str, label: str):
