@@ -20,14 +20,14 @@ def init(uri):
 uri = "Database_for_capstone.db"
 
 TABLES = {
-    "student": ["id","Name","Age","Year_enrolled","Graduating_year","class_id"],
-    "cca": ["id","Name"],
-    "activity": ["id","Name","Start_date","End_date","Description"],
-    "subject": ["id","Name","Level"],
-    "class": ["id","Name","Class"],
-    "studentcca": ["Student_id","Cca_id","Role"],
-    "studentactivity": ["Student_id","Activity_id","Category","Role","Award","Hours"],
-    "studentsubject": ["Student_id","Subject_id"],
+    "student": ["id","name","age","year_enrolled","graduating_year","class_id"],
+    "cca": ["id","name"],
+    "activity": ["id","name","start_date","end_date","description"],
+    "subject": ["id","name","level"],
+    "class": ["id","name","class"],
+    "studentcca": ["student_id","cca_id","role"],
+    "studentactivity": ["student_id","activity_id","category","role","award","hours"],
+    "studentsubject": ["student_id","subject_id"],
 }
 
 def init():    
