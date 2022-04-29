@@ -38,12 +38,7 @@ a {
     color: black;
 }
 
-.form_subheader{
-    
-}
-
 .success{
     font-family: 'Ma Shan Zheng', cursive;
-    font-family: 'My Soul', cursive;
-    font-family: 'Roboto', sans-serif;
+    font-size: 44px;
 }
