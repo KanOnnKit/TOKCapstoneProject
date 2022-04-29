@@ -15,9 +15,7 @@ CREATE TABLE IF NOT EXISTS class(
     id INTEGER,
     name TEXT,
     level TEXT,
-    class_id INTEGER,
-    PRIMARY KEY(id),
-    FOREIGN KEY(class_id) REFERENCES class(id)
+    PRIMARY KEY(id)
 );"""
 
 CREATE_TABLE_SUBJECT = """

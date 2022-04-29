@@ -7,7 +7,7 @@
     
 <body>
     {% if type == 'activity' %}
-        {% if associated_students is not None %}
+        {% if associated_students is defined %}
             {% set names = associated_students %}
         <!-- information passed into form -->
         <form
@@ -48,7 +48,7 @@
     
     
     {% elif type == 'cca' %}
-        {% if associated_students is not None %}
+        {% if associated_students is defined %}
             {% set names = associated_students %}
         <!-- information passed into form -->
         <form
@@ -87,7 +87,7 @@
         {% endif %}
     
     {% elif type == 'student' %}
-        {% if associated_ccas is not None %}
+        {% if associated_ccas is defined %}
             {% set ccas = associated_ccas %}
             {% set acts = associated_activities %}
     <!-- information passed into form -->

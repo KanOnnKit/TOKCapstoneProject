@@ -5,11 +5,11 @@ import sql
 uri = "Database_for_capstone.db"
 
 TABLES = {
-    "student": ["id","name","age","year_enrolled","graduating_year","class_id"],
+    "student": ["id","name","age","class_id","year_enrolled","graduating_year"],
     "cca": ["id","name"],
     "activity": ["id","name","start_date","end_date","description"],
     "subject": ["id","name","level"],
-    "class": ["id","name","class"],
+    "class": ["id","name","level"],
     "studentcca": ["student_id","cca_id","role"],
     "studentactivity": ["student_id","activity_id","category","role","award","hours"],
     "studentsubject": ["student_id","subject_id"],

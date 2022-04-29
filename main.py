@@ -103,20 +103,20 @@ def view():
             data = get_data_from_id(id_, requested_page_type)
 
             # Show attributed entities if the requested page type is either "cca" or "class"
-            if requested_page_type == "cca":
-                # Get attributed activities' names
-                records = find_entry("ccaactivity", "cca_id", id_)
+            # if requested_page_type == "cca":
+            #     # Get attributed activities' names
+            #     records = find_entry("ccaactivity", "cca_id", id_)
 
-                activity_names = []
-                for record in records:
-                    activity_id = records["activity_id"]
-                    activity_obj = Activity(activity_id)  # Not particularly efficient but oh well
-                    activity_names.append(activity_obj.name)
+            #     activity_names = []
+            #     for record in records:
+            #         activity_id = records["activity_id"]
+            #         activity_obj = Activity(activity_id)  # Not particularly efficient but oh well
+            #         activity_names.append(activity_obj.name)
 
-                # Add activity names to the data dictionary
-                data["activity_names"] = activity_names
+            #     # Add activity names to the data dictionary
+            #     data["activity_names"] = activity_names
 
-            elif requested_page_type == "class":  # Note: the implementation below isn't particularly efficient. Oh well
+            if requested_page_type == "class":  # Note: the implementation below isn't particularly efficient. Oh well
                 # Get all students' IDs
                 all_student_ids = get_all_primary_keys("student")
 

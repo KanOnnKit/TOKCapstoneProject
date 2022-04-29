@@ -136,6 +136,7 @@ class Student(Entity):
     Has the following fields:
         - name: Name of the student (string)
         - age: Age of the student (integer)
+        - class_id: Class Identification Number (integer)
         - year_enrolled: Year that the student enrolled (integer)
         - graduating_year: Year that the student will graduate (integer)
 
@@ -145,6 +146,7 @@ class Student(Entity):
     fields = {
         "name": StringField("name", "Name of the Student"),
         "age": IntegerField("age", "Student Age"),
+        "class_id": IntegerField("class_id", "Class ID"),
         "year_enrolled": IntegerField("year_enrolled", "Year Enrolled"),
         "graduating_year": IntegerField("graduating_year", "Year of Graduation")
     }
