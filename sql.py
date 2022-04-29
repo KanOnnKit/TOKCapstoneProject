@@ -47,7 +47,7 @@ CREATE_TABLE_STUDENTCCA = """
 CREATE TABLE studentcca(
 Student_id INTEGER,
 Cca_id INTEGER,
-Role TEXT,
+Role TEXT DEFAULT 'Member',
 PRIMARY KEY(Student_id,Cca_id)
 FOREIGN KEY(Student_id) REFERENCES student(id),
 FOREIGN KEY(Cca_id) REFERENCES cca(id)
@@ -59,7 +59,7 @@ CREATE TABLE studentactivity(
 Student_id INTEGER,
 Activity_id INTEGER,
 Category TEXT,
-Role TEXT,
+Role TEXT DEFAULT 'Member',
 Award TEXT,
 Hours INTEGER,
 PRIMARY KEY(Student_id,Activity_id)
