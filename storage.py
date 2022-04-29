@@ -2,7 +2,7 @@ import sqlite3
 
 import sql
 
-def init(uri):    
+def init(uri):
     conn = sqlite3.connect(uri)
     c = conn.cursor()
     c.execute(sql.CREATE_TABLE_STUDENT)

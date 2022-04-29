@@ -1,5 +1,5 @@
 CREATE_TABLE_STUDENT = """
-CREATE TABLE student(
+CREATE TABLE IF NOT EXISTS student(
     id INTEGER,
     Name TEXT,
     Age INTEGER,
@@ -11,7 +11,7 @@ CREATE TABLE student(
 );"""
 
 CREATE_TABLE_CLASS = """
-CREATE TABLE class(
+CREATE TABLE IF NOT EXISTS class(
     id INTEGER,
     Name TEXT,
     Level TEXT,
@@ -21,7 +21,7 @@ CREATE TABLE class(
 );"""
 
 CREATE_TABLE_SUBJECT = """
-CREATE TABLE subject(
+CREATE TABLE IF NOT EXISTS subject(
     id INTEGER,
     Name TEXT,
     Level TEXT,
@@ -29,14 +29,14 @@ CREATE TABLE subject(
 );"""
 
 CREATE_TABLE_CCA = """
-CREATE TABLE cca(
+CREATE TABLE IF NOT EXISTS cca(
     id INTEGER,
     Name TEXT,
     PRIMARY KEY(id)
 );"""
 
 CREATE_TABLE_ACTIVITY = """
-CREATE TABLE activity(
+CREATE TABLE IF NOT EXISTS activity(
     id INTEGER,
     Name TEXT,
     Start_date TEXT,
@@ -46,7 +46,7 @@ CREATE TABLE activity(
 );"""
 
 CREATE_TABLE_STUDENTCCA = """
-CREATE TABLE studentcca(
+CREATE TABLE IF NOT EXISTS studentcca(
 Student_id INTEGER,
 Cca_id INTEGER,
 Role TEXT DEFAULT 'Member',
@@ -57,7 +57,7 @@ FOREIGN KEY(Cca_id) REFERENCES cca(id)
 """
 
 CREATE_TABLE_STUDENTACTIVITY = """
-CREATE TABLE studentactivity(
+CREATE TABLE IF NOT EXISTS studentactivity(
 Student_id INTEGER,
 Activity_id INTEGER,
 Category TEXT,
@@ -71,7 +71,7 @@ FOREIGN KEY(Activity_id) REFERENCES activity(id)
 """
 
 CREATE_TABLE_STUDENTSUBJECT = """
-CREATE TABLE studentsubject(
+CREATE TABLE IF NOT EXISTS studentsubject(
 Student_id INTEGER,
 Subject_id INTEGER,
 PRIMARY KEY(Student_id,Subject_id)
