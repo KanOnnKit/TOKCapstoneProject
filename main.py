@@ -2,7 +2,7 @@
 from flask import Flask, render_template, request, abort, redirect, url_for
 
 from model import Activity, CCA, Student
-from storage import find_entry, add_entry, remove_relation
+from storage import find_entry, add_entry,remove_relation, get_all_primary_keys
 from helpers import get_id_from_name, get_ids_from_names, get_data_from_id
 
 # SETUP
