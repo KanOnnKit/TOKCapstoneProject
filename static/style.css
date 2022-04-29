@@ -1,19 +1,28 @@
-.pagetitle {
-    font-family: verdana;
-    font-size: 20px;
-}
-
 body {
     background-color: #90969e;
-    font-size: 30px;
+    font-size: 22px;
+    font-family: 'Roboto', sans-serif;
 }     
 
 h1 {
     color: black;
+    font-weight: 200;        
+}
+
+.mainpage{
+    background-color: #bbc3ce;
+    margin: auto;
+    width: 80%;
+    border: 3px solid #000a00;
+    padding: 10px;
 }
 
 p {
     color: darkblue;
+}
+
+p.confirm{
+    color: darkred;
 }
 
 a {
@@ -27,4 +36,8 @@ a {
 #brought2u {
     font-style: italic;
     color: black;
+}
+
+.form_subheader{
+    
 }
