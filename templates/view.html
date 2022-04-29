@@ -52,7 +52,7 @@
         <p class='search_output'>Name: {{ data['name'] }}</p><br />
         <p class='search_output'>Start date: {{ data['start_date'] }}</p><br />
         <p class='search_output'>End date: {{ data['end_date'] }}</p><br />
-        <p class='search_output' id='desc'>Description: {{ data['desc'] }}</p><br />
+        <p class='search_output' id='desc'>Description: {{ data['description'] }}</p><br />
     </div>
     {% endif %}
 
@@ -77,7 +77,6 @@
     
         <br />
         <input type='submit' value='Submit'/>
-        </form>
 
         {% with messages = get_flashed_messages() %}
             {% if messages %}
@@ -86,13 +85,13 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
+        </form>
     </div>
     {% else %}
     <!-- info sent to page -->
         {% set data = data_dict %} <!-- data is a dictionary -->
     <div class="mainpage">
         <p class='search_output'>Name: {{ data['name'] }}</p><br />
-        <p class='search_output'>Activities: {{ data['activity_names'] }}</p><br />
     </div>
     {% endif %}
 
@@ -117,7 +116,6 @@
     
         <br />
         <input type='submit' value='Submit'/>
-        </form>
 
         {% with messages = get_flashed_messages() %}
             {% if messages %}
@@ -126,6 +124,7 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
+        </form>
     </div>
     {% else %}
     <!-- info sent to page -->
@@ -133,7 +132,6 @@
     <div class="mainpage">
         <p class='search_output'>Name: {{ data['name'] }}</p><br />
         <p class='search_output'>Level: {{ data['level'] }}</p><br />
-        <p class='search_output'>Students: {{ data['student_names'] }}</p><br />
     </div>
     {% endif %}    
 
@@ -158,7 +156,6 @@
     
         <br />
         <input type='submit' value='Submit'/>
-        </form>
 
         {% with messages = get_flashed_messages() %}
             {% if messages %}
@@ -167,6 +164,7 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
+        </form>
     </div>
     {% else %}
     <!-- info sent to page -->
