@@ -15,7 +15,9 @@ CREATE TABLE class(
     id INTEGER,
     Name TEXT,
     Level TEXT,
+    class_id INTEGER,
     PRIMARY KEY(id),
+    FOREIGN KEY(class_id) REFERENCES class(id)
 );"""
 
 CREATE_TABLE_SUBJECT = """
