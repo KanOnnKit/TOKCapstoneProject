@@ -83,15 +83,18 @@
     <input type='submit' value='Submit' size=12/>
 <!-- end of form -->
     </form>
-    <p>Is this correct?</p>
+    <p class='confirm'>Is this correct?</p>
     
     {% else %}
 
     <!-- redirects user to the correct page -->
+    <div class='mainpage' id='options'>
     <a href='/add?type=cca'>Add a CCA</a><br /> 
     <a href='/add?type=activity'>Add an Activity</a>
+    </div>
     {% endif %}
-    
+
+    <br />
     <div id='brought2u'>
     Brought to you by
         H2 computing
