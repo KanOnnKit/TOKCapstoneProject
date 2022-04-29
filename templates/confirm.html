@@ -6,23 +6,33 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=My+Soul&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+
 </head>
     
 <body>
-    <h1>Success</h1>
-    <div class='success'>
-        <p class='success'>
-            Task accomplished successfully!<br />
-            Thanks for using it! :D
-        </p>
-    </div>
-
-    <a href="{{ url_for('index') }}">Back to homepage</a>
+    <h1 class='pageheader'>
+        <a href="/">
+            <button class="btn"><i class="fa fa-home"></i> Home</button></a>
+        NYJC CCA Records Manager
+    </h1>
+    <h1 class='subheader' style="text-align:center">Success</h1>
+    <p style="text-align:center" class='success'>
+        Task accomplished successfully!<br />
+        Thanks for using it! :D
+    </p>
     
-    <div id='brought2u'>
-    Brought to you by
-        H2 computing
+    <div class='mainpage'>
+        <div id='brought2u'>
+        Brought to you by
+            2113 H2 computing<br /><br />
+            Courtesy of:<br />
+             - Tan Onn Kit<br />
+             - Toh Qi Zhang<br />
+             - Koh Hong Li Linus<br />
+             - Hui Yi Xhi<br />
+        </div>
     </div>
-   
 </body>
 </html>

@@ -3,50 +3,52 @@
 <head>
     <title>NYJC CCA Manager</title>
     <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='style.css') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
 </head>
     
 <body>
+    <h1 class='pageheader'>
+        <a href="/">
+            <button class="btn"><i class="fa fa-home"></i> Home</button></a>
+        NYJC CCA Records Manager
+    </h1>
+    
     {% if type == 'activity' %}
         {% if associated_students is defined %}
             {% set names = associated_students %}
         <!-- information passed into form -->
         <p>Enter names below, placing each name on a separate line.</p>
-        <form
-        action="/edit?type=activity&id={{ id }}"
-        method="post"
-        id="info">
-            <label for='name'>Students: </label><br />
-            <textarea style="font-size: 16px;" id="name" form="info" name="associated_students" rows="20" cols="30">{% for name in names %}{{ name }}
+        <div class="mainpage">
+            <form
+            action="/edit?type=activity&id={{ id }}"
+            method="post"
+            id="info"
+            class="form_body">
+                <label for='name'>Students: </label><br />
+                <textarea style="font-size: 16px;" id="name" form="info" name="associated_students" rows="20" cols="30">{% for name in names %}{{ name }}
 {% endfor %}</textarea>
-<!--
-            <input
-            title='leave as DEL to delete'
-            id='name'
-            type='text'
-            name='student'
-            value='{{ name }}'
-            size=20
-            required="required"
-            placeholder='leave as DEL to delete'/>
-            <br /> -->
-
-            <input type='submit' value='Submit'/>
-        </form>
+                <input type='submit' value='Submit'/>
+            </form>
+        </div>
         {% else %}
-        <form
-        action="/edit?type=activity"
-        method="post"
-        id="name">
-            <label for='name'>Name of activity: </label>
-            <input
-            id='name'
-            type='text'
-            name='name'
-            value=''
-            size=20
-            required="required"/>
-            <input type='submit' value='Search'/><br />
-        </form>
+        <div class="mainpage">
+            <form
+            action="/edit?type=activity"
+            method="post"
+            id="name"
+            class="form_body">
+                <label for='name'>Name of activity: </label>
+                <input 
+                id='name'
+                type='text'
+                name='name'
+                value=''
+                size=20
+                required="required"/>
+                <input type='submit' value='Search'/><br />
+            </form>
+        </div>
         {% endif %}
 
 
@@ -55,30 +57,36 @@
             {% set names = associated_students %}
         <!-- information passed into form -->
         <p>Enter names below, placing each name on a separate line.</p>
-        <form
-        action="/edit?type=cca&id={{ id }}"
-        method="post"
-        id="info">
-            <label for='name'>Students: </label><br />
-            <textarea style="font-size: 16px;" id="name" form="info" name="associated_students" rows="20" cols="30">{% for name in names %}{{ name }}
+        <div class="mainpage">
+            <form
+            action="/edit?type=cca?id={{ id }}"
+            method="post"
+            id="info"
+            class="form_body">
+                <label for='name'>Students: </label><br />
+                <textarea style="font-size: 16px;" id="name" form="info" name="associated_students" rows="20" cols="30">{% for name in names %}{{ name }}
 {% endfor %}</textarea>
-            <input type='submit' value='Submit'/>
-        </form>
+                <input type='submit' value='Submit'/>
+            </form>
+        </div>
         {% else %}
-        <form
-        action="/edit?type=cca"
-        method="post"
-        id="name">
-            <label for='name'>Name of CCA: </label>
-            <input
-            id='name'
-            type='text'
-            name='name'
-            value=''
-            size=20
-            required="required"/>
-            <input type='submit' value='Search'/><br />
-        </form>
+        <div class="mainpage">
+            <form
+            action="/edit?type=cca"
+            method="post"
+            id="name"
+            class="form_body">
+                <label for='name'>Name of CCA: </label>
+                <input 
+                id='name'
+                type='text'
+                name='name'
+                value=''
+                size=20
+                required="required"/>
+                <input type='submit' value='Search'/><br />
+            </form>
+        </div>
         {% endif %}
 
     {% elif type == 'student' %}
@@ -86,55 +94,64 @@
             {% set ccas = associated_ccas %}
             {% set acts = associated_activities %}
     <!-- information passed into form -->
-        <p>Enter names in the following fields, placing each name on a separate line.</p>
-        <form
-        action="/edit?type=student&id={{ id }}"
-        method="post"
-        id="info">
-            <div class='student_info' id='cca'>
-            <label for='cca'>Participating CCAs: </label><br />
-            <textarea style="font-size: 16px;" id="name" form="info" name="associated_ccas" rows="20" cols="30">{% for cca in ccas %}{{ cca }}
+        <div class="mainpage">
+          <p>Enter names in the following fields, placing each name on a separate line.</p>
+            <form
+            action="/edit?type=student&id={{ id }}"
+            method="post"
+            id="info"
+            class="form_body">
+                <div class='student_info' id='cca'>
+                <label for='cca'>Participating CCAs: </label><br />
+                <textarea style="font-size: 16px;" id="name" form="info" name="associated_ccas" rows="20" cols="30">{% for cca in ccas %}{{ cca }}
 {% endfor %}</textarea>
-            </div>
-
-            <div class='student_info' id='act'>
-            <label for='act'>Participating Activities: </label><br />
-            <textarea style="font-size: 16px;" id="name" form="info" name="associated_activities" rows="20" cols="30">{% for act in acts %}{{ act }}
+                </div>
+    
+                <div class='student_info' id='act'>
+                <label for='act'>Participating Activity(s): </label><br />
+                <textarea style="font-size: 16px;" id="name" form="info" name="associated_activities" rows="20" cols="30">{% for act in acts %}{{ act }}
 {% endfor %}</textarea>
-            </div>
-            
-            <input type='submit' value='Submit'/>
-        </form>
+                </div>
+                
+                <input type='submit' value='Submit'/>
+            </form>
+        </div>
         {% else %}
-        <form
-        action="/edit?type=student"
-        method="post"
-        id="name">
-            <label for='name'>Name of Student: </label>
-            <input 
-            id='name'
-            type='text'
-            name='name'
-            value=''
-            size=20
-            required="required"/>
-            <input type='submit' value='Search'/><br />
-        </form>
+        <div class="mainpage">
+            <form
+            action="/edit?type=student"
+            method="post"
+            id="name"
+            class="form_body">
+                <label for='name'>Name of Student: </label>
+                <input 
+                id='name'
+                type='text'
+                name='name'
+                value=''
+                size=20
+                required="required"/>
+                <input type='submit' value='Search'/><br />
+            </form>
+        </div>
         {% endif %}
     
     {% else %}
     <!-- new form -->
-    <h1>What would you like to do?</h1>
-    <p>Do you want to <br />
-        <div class='options'>
-            <a href='/edit?type=activity'>Edit a past activity</a><br /> 
-            <a href='/edit?type=cca'>Edit a CCA</a><br /> 
-            <a href='/edit?type=student'>Edit a student</a><br />
-        </div>
-    </p>
+    <h1 class='subheader'>What would you like to do?</h1>
+    <div class='mainpage'>
+        <p>Do you want to:<br />
+            <p class='options'>
+                <a href='/edit?type=activity'>Edit a past activity</a><br /><br />
+                <a href='/edit?type=cca'>Edit a CCA</a><br /><br />
+                <a href='/edit?type=student'>Edit a student</a><br />
+            </p>
+        </p>
+    </div>
     
     {% endif %}
-    
+
+    <br />
     <div id='brought2u'>
     Brought to you by
         H2 computing

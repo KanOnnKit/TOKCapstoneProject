@@ -3,16 +3,25 @@
 <head>
     <title>NYJC CCA Manager</title>
     <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='style.css') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
 </head>
 
 <body>
+    <h1 class='pageheader'>
+        <a href="/">
+            <button class="btn"><i class="fa fa-home"></i> Home</button></a>
+        NYJC CCA Records Manager
+    </h1>
+    
     {% if type == 'cca' %}
     <!-- sends name -->
     <h2 class='form_subheader'>Add a CCA</h2>
     <form
         action="/add?type=cca"
         method="post"
-        id="cca_info">
+        id="cca_info"
+        class='form_body'>
 <!-- insert form here -->
     <label for="name">Name of CCA:</label>
     <input
@@ -22,27 +31,31 @@
         placeholder='Nanyang Computing'
         value=''
         size=20
-        required/><br />
-    <input type='submit' value='Submit'/>
+        required="required"/><br />
+    <p class='confirm'>
+        <strong>Is this correct?</strong>
+        <input type='submit' value='Submit'/>
+    </p>
 <!-- end of form -->
     </form>
 
     {% elif type == 'activity' %}
     <!-- sends name, cca_id, start_date, end_date, description -->
     <h2 class='form_subheader'>Add an Activity</h2>
-    <form
-        action="/add?type=activity"
-        method="post"
-        id="cca_info" >
+    <form 
+        action="/add?type=activity" 
+        method="post" 
+        id="cca_info"
+        class='form_body'>
 <!-- start of form -->
     <label for="name">Name of Activity:</label>
-        <input
-            id='name'
-            type='text'
-            name='name'
-            placeholder='Cyberthon 2022'
-            value=''
-            size=20
+        <input 
+            id='name' 
+            type='text' 
+            name='name' 
+            placeholder='Cyberthon 2022' 
+            value='' 
+            size=20 
             required><br /><br />
 
     <label><strong>Activity Duration</strong></label><br />
@@ -53,33 +66,42 @@
             name="start_date"
             required><br />
         <label for="end_date">End date:</label>
-        <input
-            type="date"
-            id="end_date"
-            name="end_date"
-            required><br />
+        <input 
+            type="date" 
+            id="end_date" 
+            name="end_date" 
+            required=required/><br />
+        <br />
 
-    <label for="description">Description of the activity: </label>
-        <br>
-        <textarea
-            id="description"
-            name="description"
-            maxlength=300
-            placeholder="(300 words)"
-            style="width: 500px; height: 100px"
-            required></textarea><br />
-
+    <label for="description">Description of the activity: </label><br />
+    <textarea
+        id='description'
+        name='description'
+        maxlength=300
+        rows=5
+        cols=30
+        placeholder="(300 words)"
+        required></textarea>
     <br />
-    <input type='submit' value='Submit' size=12>
+    <p class='confirm'>
+        <strong>Is this correct? </strong>
+        <input type='submit' value='Submit' size=12/>
+    </p>
+    
 <!-- end of form -->
     </form>
-
+    
     {% else %}
 
     <!-- redirects user to the correct page -->
-    <div class='mainpage' id='options'>
-    <a href='/add?type=cca'>Add a CCA</a><br />
-    <a href='/add?type=activity'>Add an Activity</a>
+    <h1 class="subheader">What would you like to do?</h1>
+    <div class='mainpage'>
+        <p>Do you want to: <br />
+            <p class='options'>
+                <a href='/add?type=cca'>Add a CCA</a><br /><br />
+                <a href='/add?type=activity'>Add an Activity</a>
+            </p>
+        </p>
     </div>
     {% endif %}
 
