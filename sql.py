@@ -1,81 +1,81 @@
 CREATE_TABLE_STUDENT = """
-CREATE TABLE IF NOT EXISTS student(
+CREATE TABLE student(
     id INTEGER,
-    Name TEXT,
-    Age INTEGER,
-    Class_id INTEGER,
-    Year_enrolled INTEGER,
-    Graduating_year INTEGER,
+    name TEXT,
+    age INTEGER,
+    class_id INTEGER,
+    year_enrolled INTEGER,
+    graduating_year INTEGER,
     PRIMARY KEY(id)
     FOREIGN KEY(class_id) REFERENCES class(id)
 );"""
 
 CREATE_TABLE_CLASS = """
-CREATE TABLE IF NOT EXISTS class(
+CREATE TABLE class(
     id INTEGER,
-    Name TEXT,
-    Level TEXT,
+    name TEXT,
+    level TEXT,
     class_id INTEGER,
     PRIMARY KEY(id),
     FOREIGN KEY(class_id) REFERENCES class(id)
 );"""
 
 CREATE_TABLE_SUBJECT = """
-CREATE TABLE IF NOT EXISTS subject(
+CREATE TABLE subject(
     id INTEGER,
-    Name TEXT,
-    Level TEXT,
+    name TEXT,
+    level TEXT,
     PRIMARY KEY(id)
 );"""
 
 CREATE_TABLE_CCA = """
-CREATE TABLE IF NOT EXISTS cca(
+CREATE TABLE cca(
     id INTEGER,
-    Name TEXT,
+    name TEXT,
     PRIMARY KEY(id)
 );"""
 
 CREATE_TABLE_ACTIVITY = """
-CREATE TABLE IF NOT EXISTS activity(
+CREATE TABLE activity(
     id INTEGER,
-    Name TEXT,
-    Start_date TEXT,
-    End_date TEXT, 
-    Description TEXT,
+    name TEXT,
+    start_date TEXT,
+    end_date TEXT, 
+    description TEXT,
     PRIMARY KEY(id)
 );"""
 
 CREATE_TABLE_STUDENTCCA = """
-CREATE TABLE IF NOT EXISTS studentcca(
-Student_id INTEGER,
-Cca_id INTEGER,
-Role TEXT DEFAULT 'Member',
-PRIMARY KEY(Student_id,Cca_id)
-FOREIGN KEY(Student_id) REFERENCES student(id),
-FOREIGN KEY(Cca_id) REFERENCES cca(id)
+CREATE TABLE studentcca(
+student_id INTEGER,
+cca_id INTEGER,
+role TEXT DEFAULT 'Member',
+PRIMARY KEY(student_id,cca_id)
+FOREIGN KEY(student_id) REFERENCES student(id),
+FOREIGN KEY(cca_id) REFERENCES cca(id)
 );
 """
 
 CREATE_TABLE_STUDENTACTIVITY = """
-CREATE TABLE IF NOT EXISTS studentactivity(
-Student_id INTEGER,
-Activity_id INTEGER,
-Category TEXT,
-Role TEXT DEFAULT 'Member',
-Award TEXT,
-Hours INTEGER,
-PRIMARY KEY(Student_id,Activity_id)
-FOREIGN KEY(Student_id) REFERENCES student(id),
-FOREIGN KEY(Activity_id) REFERENCES activity(id)
+CREATE TABLE studentactivity(
+student_id INTEGER,
+activity_id INTEGER,
+category TEXT,
+role TEXT DEFAULT 'Member',
+award TEXT,
+hours INTEGER,
+PRIMARY KEY(student_id,activity_id)
+FOREIGN KEY(student_id) REFERENCES student(id),
+FOREIGN KEY(activity_id) REFERENCES activity(id)
 );
 """
 
 CREATE_TABLE_STUDENTSUBJECT = """
-CREATE TABLE IF NOT EXISTS studentsubject(
-Student_id INTEGER,
-Subject_id INTEGER,
-PRIMARY KEY(Student_id,Subject_id)
-FOREIGN KEY(Student_id) REFERENCES student(id),
-FOREIGN KEY(Subject_id) REFERENCES subject(id)
+CREATE TABLE studentsubject(
+student_id INTEGER,
+subject_id INTEGER,
+PRIMARY KEY(student_id,subject_id)
+FOREIGN KEY(student_id) REFERENCES student(id),
+FOREIGN KEY(subject_id) REFERENCES subject(id)
 );
 """
