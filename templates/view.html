@@ -104,7 +104,7 @@
                     id="name"
                     type="text"
                     name="name"
-                    placeholder="Tan Onn Kit"
+                    placeholder="TAN ONN KIT"
                     size=20
                     required="required"/><br />
         
@@ -124,16 +124,20 @@
     {% else %} 
     <!-- new form -->
     <h1>What would you like to do?</h1>
-    <p>Do you want to <br />
-        <div class='options'>
-            <a href='/view?type=activity'>View a past activity</a><br /> 
-            <a href='/view?type=cca'>View a CCA</a><br /> 
-            <a href='/view?type=class'>View a class</a><br /> 
+    <div class='mainpage'>
+    <p>
+        Do you want to:<br />
+        <p class='options'>
+            <a href='/view?type=activity'>View a past activity</a><br /><br />
+            <a href='/view?type=cca'>View a CCA</a><br /><br />
+            <a href='/view?type=class'>View a class</a><br /><br />
             <a href='/view?type=student'>View a student</a><br />
-        </div>
+        </p>
     </p>
+    </div>
     {% endif %}
     
+    <br />
     <div id='brought2u'>
     Brought to you by
         H2 computing

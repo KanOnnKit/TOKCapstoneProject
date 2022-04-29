@@ -78,9 +78,14 @@
     {% else %}
 
     <!-- redirects user to the correct page -->
-    <div class='mainpage' id='options'>
-    <a href='/add?type=cca'>Add a CCA</a><br /> 
-    <a href='/add?type=activity'>Add an Activity</a>
+    <h1>What would you like to do?</h1>
+    <div class='mainpage'>
+        <p>Do you want to: <br />
+            <p class='options'>
+                <a href='/add?type=cca'>Add a CCA</a><br /><br />
+                <a href='/add?type=activity'>Add an Activity</a>
+            </p>
+        </p>
     </div>
     {% endif %}
 

@@ -17,18 +17,6 @@
             <label for='name'>Students: </label><br />
             <textarea style="font-size: 16px;" id="name" form="info" name="associated_students" rows="20" cols="30">{% for name in names %}{{ name }}
 {% endfor %}</textarea>
-<!--             
-            <input 
-            title='leave as DEL to delete'
-            id='name'
-            type='text'
-            name='student'
-            value='{{ name }}'
-            size=20
-            required="required"
-            placeholder='leave as DEL to delete'/>
-            <br /> -->
-            
             <input type='submit' value='Submit'/>
         </form>
         {% else %}
@@ -122,16 +110,19 @@
     {% else %}
     <!-- new form -->
     <h1>What would you like to do?</h1>
-    <p>Do you want to <br />
-        <div class='options'>
-            <a href='/edit?type=activity'>Edit a past activity</a><br /> 
-            <a href='/edit?type=cca'>Edit a CCA</a><br /> 
-            <a href='/edit?type=student'>Edit a student</a><br />
-        </div>
-    </p>
+    <div class='mainpage'>
+        <p>Do you want to:<br />
+            <p class='options'>
+                <a href='/edit?type=activity'>Edit a past activity</a><br /><br />
+                <a href='/edit?type=cca'>Edit a CCA</a><br /><br />
+                <a href='/edit?type=student'>Edit a student</a><br />
+            </p>
+        </p>
+    </div>
     
     {% endif %}
-    
+
+    <br />
     <div id='brought2u'>
     Brought to you by
         H2 computing
