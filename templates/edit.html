@@ -18,30 +18,36 @@
         {% if associated_students is defined %}
             {% set names = associated_students %}
         <!-- information passed into form -->
-        <form
-        action="/edit?type=activity"
-        method="post"
-        id="info">
-            <label for='name'>Students: </label><br />
-            <textarea style="font-size: 16px;" id="name" form="info" name="associated_students" rows="20" cols="30">{% for name in names %}{{ name }}
-{% endfor %}</textarea>
-            <input type='submit' value='Submit'/>
-        </form>
+        <div class="mainpage">
+            <form
+            action="/edit?type=activity"
+            method="post"
+            id="info"
+            class="form_body">
+                <label for='name'>Students: </label><br />
+                <textarea style="font-size: 16px;" id="name" form="info" name="associated_students" rows="20" cols="30">{% for name in names %}{{ name }}
+        {% endfor %}</textarea>
+                <input type='submit' value='Submit'/>
+            </form>
+        </div>
         {% else %}
-        <form
-        action="/edit?type=activity"
-        method="post"
-        id="name">
-            <label for='name'>Name of activity: </label>
-            <input 
-            id='name'
-            type='text'
-            name='name'
-            value=''
-            size=20
-            required="required"/>
-            <input type='submit' value='Search'/><br />
-        </form>
+        <div class="mainpage">
+            <form
+            action="/edit?type=activity"
+            method="post"
+            id="name"
+            class="form_body">
+                <label for='name'>Name of activity: </label>
+                <input 
+                id='name'
+                type='text'
+                name='name'
+                value=''
+                size=20
+                required="required"/>
+                <input type='submit' value='Search'/><br />
+            </form>
+        </div>
         {% endif %}
     
     
@@ -49,30 +55,36 @@
         {% if associated_students is defined %}
             {% set names = associated_students %}
         <!-- information passed into form -->
-        <form
-        action="/edit?type=cca"
-        method="post"
-        id="info">
-            <label for='name'>Students: </label><br />
-            <textarea style="font-size: 16px;" id="name" form="info" name="associated_students" rows="20" cols="30">{% for name in names %}{{ name }}
-{% endfor %}</textarea>
-            <input type='submit' value='Submit'/>
-        </form>
+        <div class="mainpage">
+            <form
+            action="/edit?type=cca"
+            method="post"
+            id="info"
+            class="form_body">
+                <label for='name'>Students: </label><br />
+                <textarea style="font-size: 16px;" id="name" form="info" name="associated_students" rows="20" cols="30">{% for name in names %}{{ name }}
+    {% endfor %}</textarea>
+                <input type='submit' value='Submit'/>
+            </form>
+        </div>
         {% else %}
-        <form
-        action="/edit?type=cca"
-        method="post"
-        id="name">
-            <label for='name'>Name of CCA: </label>
-            <input 
-            id='name'
-            type='text'
-            name='name'
-            value=''
-            size=20
-            required="required"/>
-            <input type='submit' value='Search'/><br />
-        </form>
+        <div class="mainpage">
+            <form
+            action="/edit?type=cca"
+            method="post"
+            id="name"
+            class="form_body">
+                <label for='name'>Name of CCA: </label>
+                <input 
+                id='name'
+                type='text'
+                name='name'
+                value=''
+                size=20
+                required="required"/>
+                <input type='submit' value='Search'/><br />
+            </form>
+        </div>
         {% endif %}
     
     {% elif type == 'student' %}
@@ -80,39 +92,45 @@
             {% set ccas = associated_ccas %}
             {% set acts = associated_activities %}
     <!-- information passed into form -->
-        <form
-        action="/edit?type=student"
-        method="post"
-        id="info">
-            <div class='student_info' id='cca'>
-            <label for='cca'>Participating CCAs: </label><br />
-            <textarea style="font-size: 16px;" id="name" form="info" name="associated_ccas" rows="20" cols="30">{% for cca in ccas %}{{ cca }}
-{% endfor %}</textarea>
-            </div>
-
-            <div class='student_info' id='act'>
-            <label for='act'>Participating Activity(s): </label><br />
-            <textarea style="font-size: 16px;" id="name" form="info" name="associated_activities" rows="20" cols="30">{% for act in acts %}{{ act }}
-{% endfor %}</textarea>
-            </div>
-            
-            <input type='submit' value='Submit'/>
-        </form>
+        <div class="mainpage">
+            <form
+            action="/edit?type=student"
+            method="post"
+            id="info"
+            class="form_body">
+                <div class='student_info' id='cca'>
+                <label for='cca'>Participating CCAs: </label><br />
+                <textarea style="font-size: 16px;" id="name" form="info" name="associated_ccas" rows="20" cols="30">{% for cca in ccas %}{{ cca }}
+    {% endfor %}</textarea>
+                </div>
+    
+                <div class='student_info' id='act'>
+                <label for='act'>Participating Activity(s): </label><br />
+                <textarea style="font-size: 16px;" id="name" form="info" name="associated_activities" rows="20" cols="30">{% for act in acts %}{{ act }}
+    {% endfor %}</textarea>
+                </div>
+                
+                <input type='submit' value='Submit'/>
+            </form>
+        </div>
         {% else %}
-        <form
-        action="/edit?type=student"
-        method="post"
-        id="name">
-            <label for='name'>Name of Student: </label>
-            <input 
-            id='name'
-            type='text'
-            name='name'
-            value=''
-            size=20
-            required="required"/>
-            <input type='submit' value='Search'/><br />
-        </form>
+        <div class="mainpage">
+            <form
+            action="/edit?type=student"
+            method="post"
+            id="name"
+            class="form_body">
+                <label for='name'>Name of Student: </label>
+                <input 
+                id='name'
+                type='text'
+                name='name'
+                value=''
+                size=20
+                required="required"/>
+                <input type='submit' value='Search'/><br />
+            </form>
+        </div>
         {% endif %}
     
     {% else %}

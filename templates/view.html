@@ -17,10 +17,12 @@
     {% if data_dict is not defined %} 
     <!-- no info sent to page -->
     <!-- sends name (of activity) -->
+    <div class="mainpage">
         <form
             action="/view?type=activity"
             method="post"
-            id="act_info">
+            id="act_info"
+            class="form_body">
         <label for="name">Name of activity:</label>
             <input
                 id="name"
@@ -32,24 +34,29 @@
         <br />
         <input type='submit' value='Search'/>
         </form>
+    </div>
     {% else %} 
     <!-- info sent to page -->
         {% set data = data_dict %} <!-- data is a dictionary -->
+    <div class="mainpage">
         <p class='search_output'>Name: {{ data['name'] }}</p><br />
         <p class='search_output'>Associated CCA: {{ data['associated_cca'] }}</p><br />
         <p class='search_output'>Start date: {{ data['start_date'] }}</p><br />
         <p class='search_output'>End date: {{ data['end_date'] }}</p><br />
         <p class='search_output' id='desc'>Description: {{ data['desc'] }}</p><br />
+    </div>
     {% endif %}
 
 {% elif type == 'cca' %}
     {% if data_dict is not defined %} 
     <!-- no info sent to page -->
     <!-- sends name (of CCA) -->
+    <div class="mainpage">
         <form
             action="/view?type=cca"
             method="post"
-            id="cca_info">
+            id="cca_info"
+            class='form_body'>
         <label for="name">Name of CCA:</label>
             <input
                 id="name"
@@ -62,21 +69,26 @@
         <br />
         <input type='submit' value='Submit'/>
         </form>
+    </div>
     {% else %}
     <!-- info sent to page -->
         {% set data = data_dict %} <!-- data is a dictionary -->
+    <div class="mainpage">
         <p class='search_output'>Name: {{ data['name'] }}</p><br />
         <p class='search_output'>Activities: {{ data['activity_names'] }}</p><br />
+    </div>
     {% endif %}
 
 {% elif type == 'class' %}
     {% if data_dict is not defined %}
     <!-- no info sent to page -->
     <!-- sends name (of class) -->
+    <div class="mainpage">
         <form
             action="/view?type=class"
             method="post"
-            id="cca_info">
+            id="cca_info"
+            class="form_body">
         <label for="name">Name of class:</label>
             <input
                 id="name"
@@ -89,23 +101,27 @@
         <br />
         <input type='submit' value='Submit'/>
         </form>
-
+    </div>
     {% else %}
     <!-- info sent to page -->
         {% set data = data_dict %} <!-- data is a dictionary -->
+    <div class="mainpage">
         <p class='search_output'>Name: {{ data['name'] }}</p><br />
         <p class='search_output'>Level: {{ data['level'] }}</p><br />
         <p class='search_output'>Students: {{ data['student_names'] }}</p><br />
+    </div>
     {% endif %}    
 
 {% elif type == 'student' %}
     {% if data_dict is not defined %} 
     <!-- no info sent to page -->
     <!-- sends name (of student) -->
+    <div class="mainpage">
         <form
             action="/view?type=student"
             method="post"
-            id="cca_info">
+            id="cca_info"
+            class="form_body">
         <label for="name">Name of student:</label>
             <input
                 id="name"
@@ -118,14 +134,16 @@
         <br />
         <input type='submit' value='Submit'/>
         </form>
-
+    </div>
     {% else %}
     <!-- info sent to page -->
         {% set data = data_dict %} <!-- data is a dictionary -->
+    <div class="mainpage">
         <p class='search_output'>Name: {{ data['name'] }}</p><br />
         <p class='search_output'>Age: {{ data['age'] }}</p><br />
         <p class='search_output'>Year enrolled: {{ data['year_enrolled'] }}</p><br />
         <p class='search_output'>Graduation year: {{ data['graduating_year'] }}</p><br />
+    </div>
     {% endif %}
 
 {% else %} 
