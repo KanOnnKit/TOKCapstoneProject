@@ -2,12 +2,165 @@
 <html>
 <head>
     <title>NYJC CCA Manager</title>
+    <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='style.css') }}" />
 </head>
     
 <body>
+    {% if type == 'activity' %}
+        {% if associated_students is not None %}
+            {% set names = associated_students %}
+        <!-- information passed into form -->
+        <form
+        action="/edit"
+        method="post"
+        id="info">
+            <label for='name'>Students: </label><br />
+            {% for name in names %}
+            <input 
+            title='leave as DEL to delete'
+            id='name'
+            type='text'
+            name='student{{ loop.index }}'
+            value='{{ name }}'
+            size=20
+            required="required"
+            placeholder='leave as DEL to delete'/>
+            <br />
+            {% endfor %}
+            <input type='submit' value='Submit'/>
+        </form>
+        {% else %}
+        <form
+        action="/edit?type=activity"
+        method="post"
+        id="name">
+            <label for='name'>Name of activity: </label>
+            <input 
+            id='name'
+            type='text'
+            name='name'
+            value=''
+            size=20
+            required="required"/>
+            <input type='submit' value='Search'/><br />
+        </form>
+        {% endif %}
+    
+    
+    {% elif type == 'cca' %}
+        {% if associated_students is not None %}
+            {% set names = associated_students %}
+        <!-- information passed into form -->
+        <form
+        action="/edit"
+        method="post"
+        id="info">
+            <label for='name'>Students: </label><br />
+            {% for name in names %}
+            <input 
+            title='leave as DEL to delete'
+            id='name'
+            type='text'
+            name='student{{ loop.index }}'
+            value='{{ name }}'
+            size=20
+            required="required"
+            placeholder='leave as DEL to delete'/><br />
+            {% endfor %}
+            <input type='submit' value='Submit'/>
+        </form>
+        {% else %}
+        <form
+        action="/edit?type=cca"
+        method="post"
+        id="name">
+            <label for='name'>Name of CCA: </label>
+            <input 
+            id='name'
+            type='text'
+            name='name'
+            value=''
+            size=20
+            required="required"/>
+            <input type='submit' value='Search'/><br />
+        </form>
+        {% endif %}
+    
+    {% elif type == 'student' %}
+        {% if associated_ccas is not None %}
+            {% set ccas = associated_ccas %}
+            {% set acts = associated_activities %}
+    <!-- information passed into form -->
+        <form
+        action="/edit"
+        method="post"
+        id="info">
+            <div class='student_info' id='cca'>
+            <label for='cca'>Participating CCAs: </label><br />
+            {% for cca in ccas %}
+            <input 
+            title='leave as DEL to delete'
+            id='cca'
+            type='text'
+            name='cca{{ loop.index }}'
+            value='{{ cca }}'
+            size=20
+            required="required"
+            placeholder='leave as DEL to delete'/><br />
+            {% endfor %}
+            </div>
 
-<h1>My First Heading</h1>
-<p>My first paragraph.</p>
-
+            <div class='student_info' id='act'>
+            <label for='act'>Participating Activity(s): </label><br />
+            {% for act in acts %}
+            <input 
+            title='leave as DEL to delete'
+            id='act'
+            type='text'
+            name='activity{{ loop.index }}'
+            value='{{ act }}'
+            size=20
+            required="required"
+            placeholder='leave as DEL to delete'/><br />
+            {% endfor %}
+            </div>
+            
+            <input type='submit' value='Submit'/>
+        </form>
+        {% else %}
+        <form
+        action="/edit?type=student"
+        method="post"
+        id="name">
+            <label for='name'>Name of Student: </label>
+            <input 
+            id='name'
+            type='text'
+            name='name'
+            value=''
+            size=20
+            required="required"/>
+            <input type='submit' value='Search'/><br />
+        </form>
+        {% endif %}
+    
+    {% else %}
+    <!-- new form -->
+    <h1>What would you like to do?</h1>
+    <p>Do you want to <br />
+        <div class='options'>
+            <a href='/edit?type=activity'>Edit a past activity</a><br /> 
+            <a href='/edit?type=cca'>Edit a CCA</a><br /> 
+            <a href='/edit?type=student'>Edit a student</a><br />
+        </div>
+    </p>
+    
+    {% endif %}
+    
+    <div id='brought2u'>
+    Brought to you by
+        H2 computing
+    </div>
+    
 </body>
 </html>
