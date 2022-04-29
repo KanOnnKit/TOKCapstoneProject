@@ -4,7 +4,7 @@
     <title>NYJC CCA Manager</title>
     <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='style.css') }}" />
 </head>
-    
+
 <body>
     {% if type == 'cca' %}
     <!-- sends name -->
@@ -15,71 +15,70 @@
         id="cca_info">
 <!-- insert form here -->
     <label for="name">Name of CCA:</label>
-    <input 
+    <input
         id='name'
         type='text'
         name='name'
         placeholder='Nanyang Computing'
         value=''
         size=20
-        required="required"/><br />
+        required/><br />
     <input type='submit' value='Submit'/>
 <!-- end of form -->
     </form>
-    <p>Is this correct?</p>
 
     {% elif type == 'activity' %}
     <!-- sends name, cca_id, start_date, end_date, description -->
     <h2 class='form_subheader'>Add an Activity</h2>
-    <form 
-        action="/add?type=activity" 
-        method="post" 
+    <form
+        action="/add?type=activity"
+        method="post"
         id="cca_info" >
 <!-- start of form -->
     <label for="name">Name of Activity:</label>
-        <input 
-            id='name' 
-            type='text' 
-            name='name' 
-            placeholder='Cyberthon 2022' 
-            value='' 
-            size=20 
-            required=required/><br />
+        <input
+            id='name'
+            type='text'
+            name='name'
+            placeholder='Cyberthon 2022'
+            value=''
+            size=20
+            required><br /><br />
 
     <label><strong>Activity Duration</strong></label><br />
         <label for="start_date">Start date:</label>
-        <input 
-            type="date" 
-            id="start_date" 
-            name="start_date" 
-            required=required/><br /> 
-        <label for="end_date">End date:</label>
-        <input 
-            type="date" 
-            id="end_date" 
-            name="end_date" 
-            required=required/><br />
-
-    <label for="description">Description of the activity (optional): </label>
         <input
-            type="text" 
-            id="description" 
+            type="date"
+            id="start_date"
+            name="start_date"
+            required><br />
+        <label for="end_date">End date:</label>
+        <input
+            type="date"
+            id="end_date"
+            name="end_date"
+            required><br />
+
+    <label for="description">Description of the activity: </label>
+        <br>
+        <textarea
+            id="description"
             name="description"
             maxlength=300
-            value=''
-            placeholder="(300 words)"/><br />
-        
+            placeholder="(300 words)"
+            style="width: 500px; height: 100px"
+            required></textarea><br />
+
     <br />
-    <input type='submit' value='Submit' size=12/>
+    <input type='submit' value='Submit' size=12>
 <!-- end of form -->
     </form>
-    <p class='confirm'>Is this correct?</p>
-    
+
     {% else %}
 
     <!-- redirects user to the correct page -->
     <div class='mainpage' id='options'>
-    <a href='/add?type=cca'>Add a CCA</a><br /> 
+    <a href='/add?type=cca'>Add a CCA</a><br />
     <a href='/add?type=activity'>Add an Activity</a>
     </div>
     {% endif %}
@@ -89,6 +88,6 @@
     Brought to you by
         H2 computing
     </div>
-    
+
 </body>
 </html>

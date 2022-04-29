@@ -28,10 +28,12 @@
         {% else %} 
         <!-- info sent to page -->
             {% set data = data_dict %} <!-- data is a dictionary -->
-            <p class='search_output'>Name: {{ data['name'] }}</p><br />
-            <p class='search_output'>Start date: {{ data['start_date'] }}</p><br />
-            <p class='search_output'>End date: {{ data['end_date'] }}</p><br />
-            <p class='search_output' id='desc'>Description: {{ data['description'] }}</p><br />
+            <p class='search_output'>
+                Name: {{ data['name'] }}<br />
+                Start date: {{ data['start_date'] }}<br />
+                End date: {{ data['end_date'] }}<br />
+                Description: {{ data['description'] }}
+            </p>
         {% endif %}
     
     {% elif type == 'cca' %}
@@ -57,7 +59,7 @@
         {% else %}
         <!-- info sent to page -->
             {% set data = data_dict %} <!-- data is a dictionary -->
-            <p class='search_output'>Name: {{ data['name'] }}</p><br />
+            <p class='search_output'>Name: {{ data['name'] }}</p>
         {% endif %}
     
     {% elif type == 'class' %}
@@ -84,9 +86,10 @@
         {% else %}
         <!-- info sent to page -->
             {% set data = data_dict %} <!-- data is a dictionary -->
-            <p class='search_output'>Name: {{ data['name'] }}</p><br />
-            <p class='search_output'>Level: {{ data['level'] }}</p><br />
-            <p class='search_output'>Students: {{ data['student_names'] }}</p><br />
+            <p class='search_output'>
+                Name: {{ data['name'] }}<br />
+                Level: {{ data['level'] }}
+            </p>
         {% endif %}    
     
     {% elif type == 'student' %}
@@ -102,7 +105,6 @@
                     id="name"
                     type="text"
                     name="name"
-                    placeholder="Tan Onn Kit"
                     size=20
                     required="required"/><br />
         
@@ -113,10 +115,12 @@
         {% else %}
         <!-- info sent to page -->
             {% set data = data_dict %} <!-- data is a dictionary -->
-            <p class='search_output'>Name: {{ data['name'] }}</p><br />
-            <p class='search_output'>Age: {{ data['age'] }}</p><br />
-            <p class='search_output'>Year enrolled: {{ data['year_enrolled'] }}</p><br />
-            <p class='search_output'>Graduation year: {{ data['graduating_year'] }}</p><br />
+            <p class='search_output'>
+                Name: {{ data['name'] }}<br />
+                Age: {{ data['age'] }}<br />
+                Year enrolled: {{ data['year_enrolled'] }}<br />
+                Graduation year: {{ data['graduating_year'] }}<br />
+            </p>
         {% endif %}
     
     {% else %} 

@@ -10,15 +10,16 @@
         {% if associated_students is defined %}
             {% set names = associated_students %}
         <!-- information passed into form -->
+        <p>Enter names below, placing each name on a separate line.</p>
         <form
-        action="/edit?type=activity"
+        action="/edit?type=activity&id={{ id }}"
         method="post"
         id="info">
             <label for='name'>Students: </label><br />
             <textarea style="font-size: 16px;" id="name" form="info" name="associated_students" rows="20" cols="30">{% for name in names %}{{ name }}
 {% endfor %}</textarea>
-<!--             
-            <input 
+<!--
+            <input
             title='leave as DEL to delete'
             id='name'
             type='text'
@@ -28,7 +29,7 @@
             required="required"
             placeholder='leave as DEL to delete'/>
             <br /> -->
-            
+
             <input type='submit' value='Submit'/>
         </form>
         {% else %}
@@ -37,7 +38,7 @@
         method="post"
         id="name">
             <label for='name'>Name of activity: </label>
-            <input 
+            <input
             id='name'
             type='text'
             name='name'
@@ -47,14 +48,15 @@
             <input type='submit' value='Search'/><br />
         </form>
         {% endif %}
-    
-    
+
+
     {% elif type == 'cca' %}
         {% if associated_students is defined %}
             {% set names = associated_students %}
         <!-- information passed into form -->
+        <p>Enter names below, placing each name on a separate line.</p>
         <form
-        action="/edit?type=cca"
+        action="/edit?type=cca&id={{ id }}"
         method="post"
         id="info">
             <label for='name'>Students: </label><br />
@@ -68,7 +70,7 @@
         method="post"
         id="name">
             <label for='name'>Name of CCA: </label>
-            <input 
+            <input
             id='name'
             type='text'
             name='name'
@@ -78,14 +80,15 @@
             <input type='submit' value='Search'/><br />
         </form>
         {% endif %}
-    
+
     {% elif type == 'student' %}
         {% if associated_ccas is defined %}
             {% set ccas = associated_ccas %}
             {% set acts = associated_activities %}
     <!-- information passed into form -->
+        <p>Enter names in the following fields, placing each name on a separate line.</p>
         <form
-        action="/edit?type=student"
+        action="/edit?type=student&id={{ id }}"
         method="post"
         id="info">
             <div class='student_info' id='cca'>
@@ -95,7 +98,7 @@
             </div>
 
             <div class='student_info' id='act'>
-            <label for='act'>Participating Activity(s): </label><br />
+            <label for='act'>Participating Activities: </label><br />
             <textarea style="font-size: 16px;" id="name" form="info" name="associated_activities" rows="20" cols="30">{% for act in acts %}{{ act }}
 {% endfor %}</textarea>
             </div>

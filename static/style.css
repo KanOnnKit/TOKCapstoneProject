@@ -2,15 +2,14 @@ body {
     background-color: #90969e;
     font-size: 22px;
     font-family: 'Roboto', sans-serif;
-}     
+}
 
 h1 {
     color: black;
-    font-weight: 200;        
-<<<<<<< HEAD
+    font-weight: 200;
 }
 
-.mainpage{
+.mainpage {
     background-color: #bbc3ce;
     margin: auto;
     width: 80%;
@@ -22,44 +21,24 @@ p {
     color: darkblue;
 }
 
-p.confirm{
+p.confirm {
     color: darkred;
 }
 
-=======
-}
-
-.mainpage{
-    background-color: #bbc3ce;
-    margin: auto;
-    width: 80%;
-    border: 3px solid #000a00;
-    padding: 10px;
-}
-
-p {
-    color: darkblue;
-}
-
-p.confirm{
-    color: darkred;
-}
-
->>>>>>> 93bbd998ab1f70077a097368bd2d728319a41ccd
 a {
     color: darkblue;
 }
 
 .options {
     font-size: 150%;
-        }
+}
 
 #brought2u {
     font-style: italic;
     color: black;
 }
 
-.success{
+.success {
     font-family: 'Ma Shan Zheng', cursive;
     font-size: 44px;
 }
