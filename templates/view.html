@@ -7,11 +7,11 @@
     
 <body>
     {% if type == 'activity' %}
-        {% if data_dict is None %} 
+        {% if data_dict is not defined %} 
         <!-- no info sent to page -->
         <!-- sends name (of activity) -->
             <form
-                action="/view"
+                action="/view?type=activity"
                 method="post"
                 id="act_info">
             <label for="name">Name of activity:</label>
@@ -36,11 +36,11 @@
         {% endif %}
     
     {% elif type == 'cca' %}
-        {% if data_dict is None %} 
+        {% if data_dict is not defined %} 
         <!-- no info sent to page -->
         <!-- sends name (of CCA) -->
             <form
-                action="/view"
+                action="/view?type=cca"
                 method="post"
                 id="cca_info">
             <label for="name">Name of CCA:</label>
@@ -63,11 +63,11 @@
         {% endif %}
     
     {% elif type == 'class' %}
-        {% if data_dict is None %}
+        {% if data_dict is not defined %}
         <!-- no info sent to page -->
         <!-- sends name (of class) -->
             <form
-                action="/view"
+                action="/view?type=class"
                 method="post"
                 id="cca_info">
             <label for="name">Name of class:</label>
@@ -92,11 +92,11 @@
         {% endif %}    
     
     {% elif type == 'student' %}
-        {% if data_dict is None %} 
+        {% if data_dict is not defined %} 
         <!-- no info sent to page -->
         <!-- sends name (of student) -->
             <form
-                action="/view"
+                action="/view?type=student"
                 method="post"
                 id="cca_info">
             <label for="name">Name of student:</label>
