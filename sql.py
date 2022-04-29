@@ -3,9 +3,11 @@ CREATE TABLE student(
     id INTEGER,
     Name TEXT,
     Age INTEGER,
+    Class_id INTEGER,
     Year_enrolled INTEGER,
     Graduating_year INTEGER,
     PRIMARY KEY(id)
+    FOREIGN KEY(class_id) REFERENCES class(id)
 );"""
 
 CREATE_TABLE_CLASS = """
@@ -13,9 +15,7 @@ CREATE TABLE class(
     id INTEGER,
     Name TEXT,
     Level TEXT,
-    class_id INTEGER,
     PRIMARY KEY(id),
-    FOREIGN KEY(class_id) REFERENCES class(id)
 );"""
 
 CREATE_TABLE_SUBJECT = """

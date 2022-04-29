@@ -157,17 +157,15 @@ def get_all_primary_keys_and_values(table_name): #dictionary
     conn = sqlite3.connect(uri)
     c = conn.cursor()
     cursor = c.execute(f'''
-                       SELECT * FROM {table_name};
+                       SELECT "id","Name" FROM {table_name};
                        ''')
     data = cursor.fetchall()
-    print(data)
     for line in data:
         counter = 0
-        for column in TABLES[table_name][1:]:
+        for column in ["id","Name"]:
             outputdict[column] = line[counter]
             counter+= 1
         outputlist.append(outputdict)
-    conn.commit()
     conn.close()
     return outputlist
 
