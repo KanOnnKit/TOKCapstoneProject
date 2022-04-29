@@ -7,11 +7,11 @@
     
 <body>
     {% if type == 'activity' %}
-        {% if data_dict is None %} 
+        {% if data_dict is not defined %} 
         <!-- no info sent to page -->
         <!-- sends name (of activity) -->
             <form
-                action="/view"
+                action="/view?type=activity"
                 method="post"
                 id="act_info">
             <label for="name">Name of activity:</label>
@@ -27,7 +27,7 @@
             </form>
         {% else %} 
         <!-- info sent to page -->
-            {% set data = data_dict.items() %} <!-- data is a dictionary -->
+            {% set data = data_dict %} <!-- data is a dictionary -->
             <p class='search_output'>Name: {{ data['name'] }}</p><br />
             <p class='search_output'>Associated CCA: {{ data['associated_cca'] }}</p><br />
             <p class='search_output'>Start date: {{ data['start_date'] }}</p><br />
@@ -36,11 +36,11 @@
         {% endif %}
     
     {% elif type == 'cca' %}
-        {% if data_dict is None %} 
+        {% if data_dict is not defined %} 
         <!-- no info sent to page -->
         <!-- sends name (of CCA) -->
             <form
-                action="/view"
+                action="/view?type=cca"
                 method="post"
                 id="cca_info">
             <label for="name">Name of CCA:</label>
@@ -57,17 +57,17 @@
             </form>
         {% else %}
         <!-- info sent to page -->
-            {% set data = data_dict.items() %} <!-- data is a dictionary -->
+            {% set data = data_dict %} <!-- data is a dictionary -->
             <p class='search_output'>Name: {{ data['name'] }}</p><br />
             <p class='search_output'>Activities: {{ data['activity_names'] }}</p><br />
         {% endif %}
     
     {% elif type == 'class' %}
-        {% if data_dict is None %}
+        {% if data_dict is not defined %}
         <!-- no info sent to page -->
         <!-- sends name (of class) -->
             <form
-                action="/view"
+                action="/view?type=class"
                 method="post"
                 id="cca_info">
             <label for="name">Name of class:</label>
@@ -85,18 +85,18 @@
 
         {% else %}
         <!-- info sent to page -->
-            {% set data = data_dict.items() %} <!-- data is a dictionary -->
+            {% set data = data_dict %} <!-- data is a dictionary -->
             <p class='search_output'>Name: {{ data['name'] }}</p><br />
             <p class='search_output'>Level: {{ data['level'] }}</p><br />
             <p class='search_output'>Students: {{ data['student_names'] }}</p><br />
         {% endif %}    
     
     {% elif type == 'student' %}
-        {% if data_dict is None %} 
+        {% if data_dict is not defined %} 
         <!-- no info sent to page -->
         <!-- sends name (of student) -->
             <form
-                action="/view"
+                action="/view?type=student"
                 method="post"
                 id="cca_info">
             <label for="name">Name of student:</label>
@@ -114,7 +114,7 @@
     
         {% else %}
         <!-- info sent to page -->
-            {% set data = data_dict.items() %} <!-- data is a dictionary -->
+            {% set data = data_dict %} <!-- data is a dictionary -->
             <p class='search_output'>Name: {{ data['name'] }}</p><br />
             <p class='search_output'>Age: {{ data['age'] }}</p><br />
             <p class='search_output'>Year enrolled: {{ data['year_enrolled'] }}</p><br />
