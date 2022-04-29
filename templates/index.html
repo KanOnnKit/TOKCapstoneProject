@@ -1,26 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
     <title>NYJC CCA Manager</title>
-    <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='style.css') }}" />
-
+    <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='style.css') }}" /> 
+    <style>
+    
+    </style>
 </head>
     
 <body>
     <h1>What would you like to do?</h1>
+    <div class="mainpage">
     <p>Do you want to <br />
-    <div class='options'>
-
-    <a href="/add">Add a student/cca</a><br /><br />
-    <a href="/view">View existing student/cca</a><br /><br />
-    <a href="/edit">Edit existing student/cca</a><br /><br />
+        <div class='options'>
+        <a href="/add">Add a student/cca</a><br /><br />
+        <a href="/view">View existing student/cca</a><br /><br />
+        <a href="/edit">Edit existing student/cca</a><br /><br />
+        </div>
     </div>
     </p>
         
+    
     <div id='brought2u'>
     Brought to you by
         H2 computing
     </div>
-   
+    
 </body>
 </html>
