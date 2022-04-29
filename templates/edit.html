@@ -15,18 +15,20 @@
         method="post"
         id="info">
             <label for='name'>Students: </label><br />
-            {% for name in names %}
+            <textarea style="font-size: 16px;" id="name" form="info" name="associated_students" rows="20" cols="30">{% for name in names %}{{ name }}
+{% endfor %}</textarea>
+<!--             
             <input 
             title='leave as DEL to delete'
             id='name'
             type='text'
-            name='student{{ loop.index }}'
+            name='student'
             value='{{ name }}'
             size=20
             required="required"
             placeholder='leave as DEL to delete'/>
-            <br />
-            {% endfor %}
+            <br /> -->
+            
             <input type='submit' value='Submit'/>
         </form>
         {% else %}
@@ -56,17 +58,8 @@
         method="post"
         id="info">
             <label for='name'>Students: </label><br />
-            {% for name in names %}
-            <input 
-            title='leave as DEL to delete'
-            id='name'
-            type='text'
-            name='student{{ loop.index }}'
-            value='{{ name }}'
-            size=20
-            required="required"
-            placeholder='leave as DEL to delete'/><br />
-            {% endfor %}
+            <textarea style="font-size: 16px;" id="name" form="info" name="associated_students" rows="20" cols="30">{% for name in names %}{{ name }}
+{% endfor %}</textarea>
             <input type='submit' value='Submit'/>
         </form>
         {% else %}
@@ -97,32 +90,14 @@
         id="info">
             <div class='student_info' id='cca'>
             <label for='cca'>Participating CCAs: </label><br />
-            {% for cca in ccas %}
-            <input 
-            title='leave as DEL to delete'
-            id='cca'
-            type='text'
-            name='cca{{ loop.index }}'
-            value='{{ cca }}'
-            size=20
-            required="required"
-            placeholder='leave as DEL to delete'/><br />
-            {% endfor %}
+            <textarea style="font-size: 16px;" id="name" form="info" name="associated_ccas" rows="20" cols="30">{% for cca in ccas %}{{ cca }}
+{% endfor %}</textarea>
             </div>
 
             <div class='student_info' id='act'>
             <label for='act'>Participating Activity(s): </label><br />
-            {% for act in acts %}
-            <input 
-            title='leave as DEL to delete'
-            id='act'
-            type='text'
-            name='activity{{ loop.index }}'
-            value='{{ act }}'
-            size=20
-            required="required"
-            placeholder='leave as DEL to delete'/><br />
-            {% endfor %}
+            <textarea style="font-size: 16px;" id="name" form="info" name="associated_activities" rows="20" cols="30">{% for act in acts %}{{ act }}
+{% endfor %}</textarea>
             </div>
             
             <input type='submit' value='Submit'/>
