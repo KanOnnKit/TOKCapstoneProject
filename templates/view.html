@@ -6,6 +6,8 @@
 </head>
     
 <body>
+    <h1>NYJC CCA Records Manager</h1>
+    
     {% if type == 'activity' %}
         {% if data_dict is not defined %} 
         <!-- no info sent to page -->
@@ -123,7 +125,7 @@
     
     {% else %} 
     <!-- new form -->
-    <h1>What would you like to do?</h1>
+    <h1 class="subheader">What would you like to do?</h1>
     <div class='mainpage'>
     <p>
         Do you want to:<br />

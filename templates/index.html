@@ -7,13 +7,26 @@
 </head>
     
 <body>
-    <h1>What would you like to do?</h1>
+    <h1>NYJC CCA Records Manager</h1>
+    <h1 class="subheader">What would you like to do?</h1>
     <div class="mainpage">
         <p>Do you want to: <br />
             <p class='options'>
-                <a href="/add">Add a student/cca</a><br /><br />
-                <a href="/view">View existing student/cca</a><br /><br />
-                <a href="/edit">Edit existing student/cca</a><br />
+                <a href="/add">
+                    <img src="{{ url_for('static', filename='add.png') }}"
+                    width="25"
+                    height="25"/>Add a record (Activity/CCA)
+                </a><br /><br />
+                <a href="/view">
+                    <img src="{{ url_for('static', filename='view.png') }}"
+                    width="25"
+                    height="25"/>View existing records (Activity/CCA/Class/Student)
+                </a><br /><br />
+                <a href="/edit">
+                    <img src="{{ url_for('static', filename='edit.png') }}"
+                    width="25"
+                    height="25"/>Edit existing records (Activity/CCA/Student)
+                </a><br />
             </p>
         </p>
     </div>

@@ -1,8 +1,12 @@
 body {
-    background-color: #90969e;
+    background-color: powderblue;
     font-size: 22px;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif;  /* backup font */
 }     
+
+h1.subheader{
+    font-size: 100%;
+}
 
 h1 {
     color: black;
@@ -23,6 +27,7 @@ p {
 
 p.confirm{
     color: darkred;
+    font-style: bolder;
 }
 
 a {
@@ -41,4 +46,12 @@ a {
 .success{
     font-family: 'Ma Shan Zheng', cursive;
     font-size: 44px;
+    font-color: grey;
+}
+
+form.form_body{
+    background-color: #bbc3ce;
+    margin: auto;
+    width: 80%;
+    padding: 5px;
 }
